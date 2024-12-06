@@ -47,10 +47,9 @@ binary_sensor:
             format: Muting media player
             tag: volume_button
             level: INFO
-        - script.execute:
-            id: set_volume
-            volume: 0
-            suppress_overlay: false
+        - media_player.volume_set:
+            id: player
+            volume: 0%
 
 media_player:
   - platform: i2s_audio
@@ -68,30 +67,6 @@ media_player:
       allow_other_uses: true
 
 script:
-  - id: set_volume
-    mode: restart
-    parameters:
-      volume: int
-      suppress_overlay: bool
-    then:
-      - logger.log:
-          format: Setting volume %d
-          args:
-            - volume
-          tag: set_volume
-          level: INFO
-      - sensor.rotary_encoder.set_value:
-          id: volume_encoder
-          value: !lambda return volume / 5.0f;
-      - media_player.volume_set:
-          id: player
-          volume: !lambda return volume / 100.0f;
-      - if:
-          condition:
-            - lambda: return !suppress_overlay;
-          then:
-            - script.execute: trigger_volume_overlay
-
   - id: update_dac_mute
     then:
       - if:
