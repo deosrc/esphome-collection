@@ -1,0 +1,30 @@
+substitutions:
+  overlay_timeout: 3s
+  update_display_script: update_display
+
+globals:
+  - id: show_volume_overlay
+    type: bool
+    restore_value: false
+    initial_value: "false"
+
+script:
+  - id: trigger_volume_overlay
+    mode: restart
+    then:
+      - globals.set:
+          id: show_volume_overlay
+          value: "true"
+      - script.execute: $update_display_script
+      - delay: $overlay_timeout
+      - globals.set:
+          id: show_volume_overlay
+          value: "false"
+      - script.execute: $update_display_script
+  - id: draw_volume_overlay_if_required
+    then:
+      - if:
+          condition:
+            - lambda: return id(show_volume_overlay);
+          then:
+            - script.execute: draw_volume_overlay

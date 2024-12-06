@@ -88,12 +88,6 @@ number:
     max_value: 100
     step: 1
 
-globals:
-  - id: show_volume_overlay
-    type: bool
-    restore_value: false
-    initial_value: "false"
-
 script:
   - id: set_volume
     mode: restart
@@ -117,15 +111,7 @@ script:
           condition:
             - lambda: return !suppress_overlay;
           then:
-            - globals.set:
-                id: show_volume_overlay
-                value: "true"
-      - script.execute: update_display
-      - delay: 3s
-      - globals.set:
-          id: show_volume_overlay
-          value: "false"
-      - script.execute: update_display
+            - script.execute: trigger_volume_overlay
 
   - id: update_dac_mute
     then:
