@@ -13,6 +13,9 @@ i2s_audio:
     i2s_bclk_pin: GPIO5
     i2s_mclk_pin: GPIO0
 
+es8388:
+  preset: raspiaudio_radio
+
 output:
   - platform: gpio
     id: dac_mute

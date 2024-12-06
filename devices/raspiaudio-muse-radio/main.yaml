@@ -27,9 +27,6 @@ packages:
   audio: !include audio.yaml
   display: !include display.yaml
 
-es8388:
-  preset: raspiaudio_radio
-
 i2c:
   sda: GPIO18
   scl: GPIO11
