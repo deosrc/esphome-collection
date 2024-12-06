@@ -15,11 +15,19 @@ script:
       - globals.set:
           id: show_volume_overlay
           value: "true"
+      - logger.log:
+          format: Overlay turned on
+          tag: volume_overlay.timer
+          level: info
       - script.execute: $update_display_script
       - delay: $overlay_timeout
       - globals.set:
           id: show_volume_overlay
           value: "false"
+      - logger.log:
+          format: Overlay turned off
+          tag: volume_overlay.time
+          level: info
       - script.execute: $update_display_script
   - id: draw_volume_overlay_if_required
     then:
