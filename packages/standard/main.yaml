@@ -1,0 +1,31 @@
+# WiFi and OTA not included as they require a lot of customisation for specific environments.
+
+# System
+logger:
+  level: info
+
+captive_portal:
+
+button:
+  - platform: factory_reset
+    name: Factory Reset
+
+# Common Sensors
+binary_sensor:
+  - platform: status
+    name: "Status"
+    entity_category: "diagnostic"
+
+sensor:
+  - platform: uptime
+    name: "Uptime"
+    id: uptime_sensor
+    update_interval: 15s
+    device_class: duration
+    unit_of_measurement: s
+    entity_category: "diagnostic"
+
+  - platform: wifi_signal
+    name: "WiFi Signal Strength"
+    update_interval: 60s
+    entity_category: "diagnostic"
