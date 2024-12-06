@@ -1,0 +1,12 @@
+substitutions:
+  control_component_id: ""
+
+packages:
+  base: !include _base.yaml
+
+script:
+  - id: auto_brightness_update_component
+    then:
+      - number.set:
+          id: $control_component_id
+          value: !lambda return id(auto_brightness_target).state;

@@ -1,0 +1,55 @@
+substitutions:
+  home_assistant_entity_id: ""
+  brightness_multiplier: "1.0"
+  min_brightness: "10"
+  offset: "0"
+
+switch:
+  - platform: template
+    id: auto_brightness
+    name: Auto-brightness
+    icon: mdi:brightness-auto
+    entity_category: config
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_ON
+    on_turn_off:
+      - logger.log:
+          format: Auto-brightness switched off
+          tag: auto_brightness.switch
+          level: info
+    on_turn_on:
+      - logger.log:
+          format: Auto-brightness switched on
+          tag: auto_brightness.switch
+          level: info
+      - script.execute: auto_brightness_update
+
+sensor:
+  - id: auto_brightness_target
+    platform: homeassistant
+    entity_id: $home_assistant_entity_id
+    filters:
+      - offset: $offset
+      - multiply: $brightness_multiplier
+      - clamp:
+          min_value: $min_brightness
+          max_value: 100
+          ignore_out_of_range: false
+    on_value:
+      then:
+        - script.execute: auto_brightness_update
+
+script:
+  - id: auto_brightness_update
+    then:
+      - if:
+          condition:
+            - switch.is_on: auto_brightness
+          then:
+            - logger.log:
+                format: Updating brightness to %.0f percent
+                args:
+                  - id(auto_brightness_target).state
+                tag: auto_brightness.update
+                level: info
+            - script.execute: auto_brightness_update_component

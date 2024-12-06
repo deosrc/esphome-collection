@@ -1,0 +1,18 @@
+substitutions:
+  control_component_id: ""
+
+packages:
+  base: !include _base.yaml
+
+light:
+  - id: !extend $control_component_id
+    on_turn_on:
+      then:
+        - script.execute: auto_brightness_update
+
+script:
+  - id: auto_brightness_update_component
+    then:
+      - light.control:
+          id: $control_component_id
+          brightness: !lambda return id(auto_brightness_target).state / 100.0;
