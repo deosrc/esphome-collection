@@ -1,0 +1,56 @@
+# Based on https://github.com/tetele/muse-radio-voice-satellite/blob/main/esphome/raspiaudio-radio.yaml
+
+esphome:
+  min_version: 2024.9.1
+  platformio_options:
+    board_build.flash_mode: dio
+    board_build.arduino.memory_type: qio_opi
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  flash_size: 8MB
+  framework:
+    type: arduino
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+external_components:
+  - source: github://pr#6956
+    components: [es8388]
+    refresh: 0s
+
+packages:
+  controls: !include controls.yaml
+  audio: !include audio.yaml
+  display: !include display.yaml
+
+es8388:
+  preset: raspiaudio_radio
+
+i2c:
+  sda: GPIO18
+  scl: GPIO11
+
+spi:
+  - clk_pin: GPIO12
+    mosi_pin: GPIO8
+    # miso_pin: GPIOXX
+    interface: hardware
+
+binary_sensor:
+  - platform: gpio
+    id: usb_plugged
+    name: USB plugged in
+    pin:
+      number: GPIO21
+      mode:
+        input: true
+        pullup: true
+
+script:
+  - id: draw_overlays
+    then:
+      - script.execute: draw_volume_overlay

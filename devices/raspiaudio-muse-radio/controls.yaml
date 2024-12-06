@@ -1,0 +1,79 @@
+binary_sensor:
+  # Causes reboot loop
+  # - platform: gpio
+  #   pin:
+  #     number: GPIO35
+  #     mode:
+  #       input: true
+  #       pullup: true
+  #   id: function_button
+  #   name: Function button
+
+  - platform: gpio
+    pin:
+      number: GPIO48
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    id: volume_button
+    name: Volume button
+
+  - platform: template
+    id: button_check
+    name: Check button
+    lambda: !lambda "return (abs(id(fp_buttons_adc).state-0.81) < 0.15);"
+
+  - platform: template
+    id: button_1
+    name: Button 1
+    lambda: !lambda "return (abs(id(fp_buttons_adc).state-1.57) < 0.15);"
+
+  - platform: template
+    id: button_2
+    name: Button 2
+    lambda: !lambda "return (abs(id(fp_buttons_adc).state-1.98) < 0.15);"
+
+  - platform: template
+    id: button_3
+    name: Button 3
+    lambda: !lambda "return (abs(id(fp_buttons_adc).state-0.43) < 0.15);"
+
+sensor:
+  - platform: rotary_encoder
+    id: volume_encoder
+    name: Volume Encoder
+    pin_a:
+      number: GPIO42
+      mode:
+        input: true
+        pullup: true
+    pin_b:
+      number: GPIO3
+      mode:
+        input: true
+        pullup: true
+
+  - platform: rotary_encoder
+    name: "Function"
+    id: function_encoder
+    pin_a:
+      number: GPIO7
+      mode:
+        input: true
+        pullup: true
+    pin_b:
+      number: GPIO6
+      mode:
+        input: true
+        pullup: true
+
+  - platform: adc
+    id: fp_buttons_adc
+    # Button presses are determined by the output voltage of this pin
+    pin: GPIO1
+    internal: true
+    attenuation: auto
+    update_interval: 100ms
+    filters:
+      - delta: 0.3

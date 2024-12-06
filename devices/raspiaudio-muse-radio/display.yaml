@@ -1,0 +1,26 @@
+output:
+  - platform: ledc
+    id: screen_backlight_pin
+    pin:
+      number: GPIO41
+      mode:
+        output: true
+
+light:
+  - platform: monochromatic
+    id: screen_backlight
+    output: screen_backlight_pin
+    restore_mode: ALWAYS_ON
+    name: Screen backlight
+
+display:
+  - platform: ili9xxx
+    id: screen
+    model: ST7789V
+    cs_pin: GPIO40
+    dc_pin: GPIO39
+    reset_pin: GPIO9
+    invert_colors: true
+    rotation: 90
+    update_interval: 10s
+    auto_clear_enabled: true
