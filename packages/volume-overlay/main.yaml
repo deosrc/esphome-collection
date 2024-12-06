@@ -1,6 +1,6 @@
 substitutions:
   screen_id: "screen"
-  volume_sensor_id: "volume"
+  media_player_id: "player"
 
   font: "Ubuntu"
   text_color: "Color::BLACK"
@@ -31,8 +31,7 @@ script:
           int padding = 10;
 
           // Get volume
-          int volume_val = (int)id($volume_sensor_id).state;
-          volume_val = volume_val > 100 ? 0 : volume_val;
+          int volume_val = (int)(id($media_player_id).volume * 100);
           ESP_LOGD("volume_overlay", "Volume: %i", volume_val);
 
           // Draw overlay background

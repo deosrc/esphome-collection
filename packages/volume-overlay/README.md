@@ -33,7 +33,7 @@ packages:
     file: _deosrc-collection/packages/volume-overlay/main.yaml
     vars:
       screen_id: screen
-      volume_sensor_id: volume
+      media_player_id: player
   volume_overlay_timer: !include _deosrc-collection/packages/volume-overlay/timer.yaml
 ```
 
