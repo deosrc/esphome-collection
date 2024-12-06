@@ -1,0 +1,21 @@
+substitutions:
+  initial_value: "30"
+  volume_step: "5"
+
+esphome:
+  on_boot:
+    priority: 800.0
+    then:
+      - media_player.volume_set: !lambda return id(default_volume).state / 100.0f;
+
+number:
+  - platform: template
+    id: default_volume
+    name: Default Volume
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: $initial_value
+    min_value: 0
+    max_value: 100
+    step: $volume_step
