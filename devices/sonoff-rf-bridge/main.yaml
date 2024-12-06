@@ -1,3 +1,6 @@
+esphome:
+  min_version: 2024.9.1
+
 esp8266:
   board: esp8285
 

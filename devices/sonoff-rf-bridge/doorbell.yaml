@@ -1,0 +1,197 @@
+packages:
+  device: !include main.yaml
+  last_rf_received: !include last-rf-received.yaml
+
+esphome:
+  on_boot:
+    - script.execute: update_stored_doorbell_rf_sensors
+
+globals:
+  - id: doorbell_rf_sync
+    type: uint16_t
+    restore_value: true
+  - id: doorbell_rf_low
+    type: uint16_t
+    restore_value: true
+  - id: doorbell_rf_high
+    type: uint16_t
+    restore_value: true
+  - id: doorbell_rf_code
+    type: uint32_t
+    restore_value: true
+
+text_sensor:
+  - platform: template
+    id: doorbell_rf_sync_sensor
+    name: Doorbell Sync
+    icon: mdi:broadcast
+    entity_category: diagnostic
+    update_interval: never
+    lambda: return format_hex(id(doorbell_rf_sync));
+  - platform: template
+    id: doorbell_rf_low_sensor
+    name: Doorbell Low
+    icon: mdi:broadcast
+    entity_category: diagnostic
+    update_interval: never
+    lambda: return format_hex(id(doorbell_rf_low));
+  - platform: template
+    id: doorbell_rf_high_sensor
+    name: Doorbell High
+    icon: mdi:broadcast
+    entity_category: diagnostic
+    update_interval: never
+    lambda: return format_hex(id(doorbell_rf_high));
+  - platform: template
+    id: doorbell_rf_code_sensor
+    name: Doorbell Code
+    icon: mdi:barcode
+    entity_category: diagnostic
+    update_interval: never
+    lambda: return format_hex(id(doorbell_rf_code));
+
+# Sensors
+binary_sensor:
+  - id: !extend reset_button
+    disabled_by_default: true
+    on_press:
+      then:
+        - switch.toggle: pairing_mode
+  - platform: template
+    name: "Doorbell Pressed"
+    id: "doorbell_pressed"
+    publish_initial_state: true
+    on_press:
+      then:
+        - light.turn_on: wifi_led
+    on_release:
+      then:
+        - light.turn_off: wifi_led
+
+button:
+  - platform: template
+    id: simulate_doorbell_pressed
+    name: "Simulate Doorbell Pressed"
+    entity_category: diagnostic
+    on_press:
+      then:
+        - button.press: send_doorbell_press_signal
+        - script.execute: doorbell_signal_detected
+  - platform: template
+    id: simulate_doorbell_signal_received
+    name: "Simulate Doorbell Signal Received"
+    entity_category: diagnostic
+    on_press:
+      then:
+        - script.execute: doorbell_signal_detected
+  - platform: template
+    id: send_doorbell_press_signal
+    name: "Send Doorbell Press Signal"
+    on_press:
+      then:
+        - if:
+            condition:
+              - lambda: return id(doorbell_rf_code) == 0x0;
+            then:
+              - logger.log:
+                  format: "No doorbell code is stored!"
+                  tag: send_doorbell_press_signal
+                  level: ERROR
+            else:
+              - logger.log:
+                  format: "Sending doorbell signal (sync=0x%s, low=0x%s, high=0x%s, code=0x%s)..."
+                  args:
+                    - format_hex(id(doorbell_rf_sync)).c_str()
+                    - format_hex(id(doorbell_rf_low)).c_str()
+                    - format_hex(id(doorbell_rf_high)).c_str()
+                    - format_hex(id(doorbell_rf_code)).c_str()
+                  tag: send_doorbell_press_signal
+                  level: INFO
+              - rf_bridge.send_code:
+                  sync: !lambda return id(doorbell_rf_sync);
+                  low: !lambda return id(doorbell_rf_low);
+                  high: !lambda return id(doorbell_rf_high);
+                  code: !lambda return id(doorbell_rf_code);
+
+light:
+  - id: !extend wifi_led
+    name: WiFi LED
+    disabled_by_default: true
+
+switch:
+  - platform: template
+    id: pairing_mode
+    name: Pairing Mode
+    optimistic: true
+    entity_category: config
+
+rf_bridge:
+  on_code_received:
+    then:
+      - script.execute:
+          id: update_last_rf_received
+          sync: !lambda return format_hex(data.sync);
+          low: !lambda return format_hex(data.low);
+          high: !lambda return format_hex(data.high);
+          code: !lambda return format_hex(data.code);
+      - homeassistant.event:
+          event: esphome.rf_code_received
+          data:
+            sync: !lambda 'return format_hex(data.sync);'
+            low: !lambda 'return format_hex(data.low);'
+            high: !lambda 'return format_hex(data.high);'
+            code: !lambda 'return format_hex(data.code);'
+      - if:
+          condition:
+            - switch.is_on: pairing_mode
+          then:
+            - globals.set:
+                id: doorbell_rf_sync
+                value: !lambda return data.sync;
+            - globals.set:
+                id: doorbell_rf_low
+                value: !lambda return data.low;
+            - globals.set:
+                id: doorbell_rf_high
+                value: !lambda return data.high;
+            - globals.set:
+                id: doorbell_rf_code
+                value: !lambda return data.code;
+            - switch.turn_off: pairing_mode
+            - script.execute: update_stored_doorbell_rf_sensors
+            - logger.log:
+                format: Doorbell code stored
+                tag: rf_bridge.on_code_received
+                level: INFO
+          else:
+            - if:
+                condition:
+                  - lambda: return id(doorbell_rf_code) == 0x0;
+                then:
+                  - logger.log:
+                      format: "No doorbell code is stored!"
+                      tag: rf_bridge.on_code_received
+                      level: ERROR
+                else:
+                  - if:
+                      condition:
+                        - lambda: return data.code == id(doorbell_rf_code);
+                      then:
+                        - script.execute: doorbell_signal_detected
+
+script:
+  - id: doorbell_signal_detected
+    then:
+      - binary_sensor.template.publish:
+          id: "doorbell_pressed"
+          state: 'true'
+      - delay: 5s
+      - binary_sensor.template.publish:
+          id: "doorbell_pressed"
+          state: 'false'
+  - id: update_stored_doorbell_rf_sensors
+    then:
+      - component.update: doorbell_rf_sync_sensor
+      - component.update: doorbell_rf_low_sensor
+      - component.update: doorbell_rf_high_sensor
+      - component.update: doorbell_rf_code_sensor
