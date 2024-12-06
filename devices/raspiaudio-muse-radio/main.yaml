@@ -46,8 +46,3 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-
-script:
-  - id: draw_overlays
-    then:
-      - script.execute: draw_volume_overlay

@@ -61,18 +61,6 @@ binary_sensor:
             volume: 0
             suppress_overlay: false
 
-sensor:
-  - id: !extend volume_encoder
-    internal: true
-    min_value: 0
-    max_value: 20
-    on_value:
-      then:
-        - script.execute:
-            id: set_volume
-            volume: !lambda return x * 5;
-            suppress_overlay: false
-
 media_player:
   - platform: i2s_audio
     id: player
@@ -105,15 +93,6 @@ globals:
     type: bool
     restore_value: false
     initial_value: "false"
-
-font:
-  - id: font_volume
-    file:
-      type: gfonts
-      family: Ubuntu
-      weight: 500
-    glyphs: "0123456789"
-    size: 16
 
 script:
   - id: set_volume
@@ -161,34 +140,3 @@ script:
           else:
             - logger.log: "Turn on DAC mute"
             - output.turn_on: dac_mute
-  - id: draw_volume_overlay
-    then:
-      - lambda: |-
-          if (id(show_volume_overlay)) {
-            int margin = 20;
-            int width = 40;
-            int start = id(screen).get_width() - margin - width;
-            int top = margin;
-            int height = id(screen).get_height() - (margin * 2);
-            int text_height = 25;
-            int padding = 10;
-
-            // Draw overlay background
-            id(screen).rectangle(start, top, width, height, Color::BLACK);
-            id(screen).filled_rectangle(start + 1, top + 1, width - 2, height - 2, Color::WHITE);
-
-            int volume = id(volume_encoder).state * 5;
-            volume = volume > 100 ? 0 : volume;
-            ESP_LOGD("volume_overlay", "Volume: %i", volume);
-            id(screen).printf(start + (width / 2), top + height - text_height, id(font_volume), Color::BLACK, TextAlign::TOP_CENTER, "%i", volume);
-
-            int volume_bar_width = 8;
-            int volume_bar_start = start + ((width - volume_bar_width) / 2);
-            int volume_bar_top = top + padding;
-            int volume_bar_height = height - text_height - (padding * 2);
-            id(screen).rectangle(volume_bar_start, volume_bar_top, volume_bar_width, volume_bar_height, Color::BLACK);
-
-            int volume_bar_fill_height = (volume_bar_height - 2) * (volume / 100.0f);
-            int volume_bar_fill_top = volume_bar_top + volume_bar_height - volume_bar_fill_height - 1;
-            id(screen).filled_rectangle(volume_bar_start + 1, volume_bar_fill_top, volume_bar_width - 2, volume_bar_fill_height, Color(0,0,255));
-          }

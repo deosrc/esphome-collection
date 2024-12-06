@@ -1,0 +1,54 @@
+substitutions:
+  screen_id: "screen"
+  volume_sensor_id: "volume"
+
+  font: "Ubuntu"
+  text_color: "Color::BLACK"
+  overlay_background_color: "Color::WHITE"
+  overlay_border_color: "Color::BLACK"
+  bar_color: "Color(0,0,255)"
+  bar_border_color: "Color::BLACK"
+
+font:
+  - id: font_volume
+    file:
+      type: gfonts
+      family: Ubuntu
+      weight: 500
+    glyphs: "0123456789"
+    size: 16
+
+script:
+  - id: draw_volume_overlay
+    then:
+      - lambda: |-
+          int margin = 20;
+          int width = 40;
+          int start = id($screen_id).get_width() - margin - width;
+          int top = margin;
+          int height = id($screen_id).get_height() - (margin * 2);
+          int text_height = 25;
+          int padding = 10;
+
+          // Get volume
+          int volume_val = (int)id($volume_sensor_id).state;
+          volume_val = volume_val > 100 ? 0 : volume_val;
+          ESP_LOGD("volume_overlay", "Volume: %i", volume_val);
+
+          // Draw overlay background
+          id($screen_id).rectangle(start, top, width, height, $overlay_border_color);
+          id($screen_id).filled_rectangle(start + 1, top + 1, width - 2, height - 2, $overlay_background_color);
+
+          // Draw volume text
+          id($screen_id).printf(start + (width / 2), top + height - text_height, id(font_volume), $text_color, TextAlign::TOP_CENTER, "%i", volume_val);
+
+          // Draw volume bar
+          int volume_bar_width = 8;
+          int volume_bar_start = start + ((width - volume_bar_width) / 2);
+          int volume_bar_top = top + padding;
+          int volume_bar_height = height - text_height - (padding * 2);
+          id($screen_id).rectangle(volume_bar_start, volume_bar_top, volume_bar_width, volume_bar_height, $bar_border_color);
+
+          int volume_bar_fill_height = (volume_bar_height - 2) * (volume_val / 100.0f);
+          int volume_bar_fill_top = volume_bar_top + volume_bar_height - volume_bar_fill_height - 1;
+          id($screen_id).filled_rectangle(volume_bar_start + 1, volume_bar_fill_top, volume_bar_width - 2, volume_bar_fill_height, $bar_color);
