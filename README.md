@@ -1,1 +1,1 @@
-# esphome-packages
+# esphome-collection

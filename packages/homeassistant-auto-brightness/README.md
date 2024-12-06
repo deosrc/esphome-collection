@@ -13,7 +13,7 @@ For a device where the brightness is set using a light component:
 ```yaml
 packages:
   auto_brightness: !include
-    file: _deosrc_packages/homeassistant_auto_brightness/light.yaml
+    file: _deosrc-collection/packages/homeassistant-auto-brightness/light.yaml
     vars:
       control_component_id: backlight
       home_assistant_entity_id: sensor.kitchen_illuminance
@@ -27,7 +27,7 @@ For a device where the brightness is set using a number component. The number co
 ```yaml
 packages:
   auto_brightness: !include
-    file: _deosrc_packages/homeassistant_auto_brightness/number.yaml
+    file: _deosrc-collection/packages/homeassistant-auto-brightness/number.yaml
     vars:
       control_component_id: brightness
       home_assistant_entity_id: sensor.kitchen_illuminance
