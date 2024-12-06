@@ -43,7 +43,7 @@ rf_bridge:
 
 `doorbell.yaml` is intended as a complete package, to detect signals from 433MHz doorbells.
 
-> :info: The device and Last RF Received packages are included by the doorbell package, and do not need to be specified.
+> :information_source: The device and Last RF Received packages are included by the doorbell package, and do not need to be specified.
 
 Example usage:
 
