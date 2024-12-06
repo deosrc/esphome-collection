@@ -1,0 +1,52 @@
+text_sensor:
+  - platform: template
+    id: last_rf_received_sync
+    name: Last RF Received Sync
+    icon: mdi:broadcast
+    update_interval: never
+  - platform: template
+    id: last_rf_received_low
+    name: Last RF Received Low
+    icon: mdi:broadcast
+    update_interval: never
+  - platform: template
+    id: last_rf_received_high
+    name: Last RF Received High
+    icon: mdi:broadcast
+    update_interval: never
+  - platform: template
+    id: last_rf_received_code
+    name: Last RF Received Code
+    icon: mdi:barcode
+    update_interval: never
+
+rf_bridge:
+  on_code_received:
+    then:
+      - script.execute:
+          id: update_last_rf_received
+          sync: !lambda return format_hex(data.sync);
+          low: !lambda return format_hex(data.low);
+          high: !lambda return format_hex(data.high);
+          code: !lambda return format_hex(data.code);
+
+script:
+  - id: update_last_rf_received
+    parameters:
+      sync: string
+      low: string
+      high: string
+      code: string
+    then:
+      - text_sensor.template.publish:
+          id: last_rf_received_sync
+          state: !lambda return sync;
+      - text_sensor.template.publish:
+          id: last_rf_received_low
+          state: !lambda return low;
+      - text_sensor.template.publish:
+          id: last_rf_received_high
+          state: !lambda return high;
+      - text_sensor.template.publish:
+          id: last_rf_received_code
+          state: !lambda return code;
