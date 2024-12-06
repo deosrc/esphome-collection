@@ -1,0 +1,55 @@
+light:
+  - platform: esp32_rmt_led_strip
+    name: None
+    id: status_led
+    internal: true
+    pin: GPIO22
+    chipset: SK6812
+    num_leds: 1
+    rgb_order: grb
+    rmt_channel: 0
+    default_transition_length: 0s
+    gamma_correct: 2.8
+    effects:
+      - pulse:
+          name: pulse
+          transition_length: 250ms
+          update_interval: 250ms
+      - pulse:
+          name: slow_pulse
+          transition_length: 1s
+          update_interval: 2s
+
+wifi:
+  on_connect:
+    - script.execute: set_status_standby
+    - script.wait: set_status_standby
+  on_disconnect:
+    - script.execute: set_status_connecting
+    - script.wait: set_status_connecting
+
+script:
+  - id: set_status_connecting
+    then:
+      - logger.log:
+          level: info
+          format: "Status: Connecting"
+          tag: Status
+      - light.turn_on:
+          id: status_led
+          effect: pulse
+          red: 100%
+          green: 60%
+          blue: 0%
+  - id: set_status_standby
+    then:
+      - logger.log:
+          level: info
+          format: "Status: Standby"
+          tag: Status
+      - light.turn_on:
+          id: status_led
+          effect: none
+          red: 100%
+          green: 60%
+          blue: 0%

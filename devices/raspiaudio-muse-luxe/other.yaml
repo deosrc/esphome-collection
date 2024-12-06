@@ -1,0 +1,18 @@
+binary_sensor:
+  - platform: gpio
+    id: sd_connected
+    name: SD Card Present
+    device_class: plug
+    pin:
+      number: GPIO34
+      inverted: true
+      mode:
+        input: true
+    on_press:
+      - logger.log:
+          level: info
+          format: SD Card Inserted
+    on_release:
+      - logger.log:
+          level: info
+          format: SD Card Removed

@@ -1,0 +1,69 @@
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO19
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    id: volume_up
+    name: Volume Up
+    filters:
+      - autorepeat:
+          delay: 500ms
+          time_off: 100ms
+          time_on: 400ms
+    on_press:
+      - logger.log:
+          level: info
+          format: "Volume up"
+          tag: Controls
+      - media_player.volume_up: speaker
+  - platform: gpio
+    pin:
+      number: GPIO32
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    id: volume_down
+    name: Volume Down
+    filters:
+      - autorepeat:
+          delay: 500ms
+          time_off: 100ms
+          time_on: 400ms
+    on_press:
+      - logger.log:
+          level: info
+          format: "Volume down"
+          tag: Controls
+      - media_player.volume_up: speaker
+  - platform: gpio
+    pin:
+      number: GPIO12
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: Action
+    on_click:
+      - logger.log:
+          level: info
+          format: "Action click"
+          tag: Controls
+      - if:
+          condition:
+            - media_player.is_playing: speaker
+          then:
+            - logger.log:
+                level: info
+                format: "Pausing media"
+                tag: Controls
+            - media_player.pause: speaker
+          else:
+            - logger.log:
+                level: info
+                format: "Attempting to resume media"
+                tag: Controls
+            - media_player.play: speaker

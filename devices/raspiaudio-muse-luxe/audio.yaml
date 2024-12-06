@@ -1,0 +1,56 @@
+i2c:
+  sda: GPIO18
+  scl: GPIO23
+
+i2s_audio:
+  - i2s_lrclk_pin: GPIO25
+    i2s_bclk_pin: GPIO5
+
+external_components:
+  - source: github://RASPIAUDIO/esphomeLuxe@main
+    components: [es8388]
+    refresh: 0s
+
+es8388:
+
+media_player:
+  - platform: i2s_audio
+    name: None
+    id: speaker
+    dac_type: external
+    i2s_dout_pin: GPIO26
+    mode: stereo
+    mute_pin:
+      number: GPIO21
+      inverted: true
+
+microphone:
+  - platform: i2s_audio
+    id: audio_mic
+    i2s_din_pin: GPIO35
+    adc_type: external
+    pdm: false
+
+binary_sensor:
+  - platform: gpio
+    id: aux_connected
+    name: Aux Connected
+    device_class: plug
+    pin:
+      number: GPIO27
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    filters:
+      - delayed_on_off: 0.5s
+    on_press:
+      - logger.log:
+          level: info
+          format: AUX Connected
+          tag: Audio
+    on_release:
+      - logger.log:
+          level: info
+          format: AUX Disconnected
+          tag: Audio

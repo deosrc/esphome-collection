@@ -1,0 +1,17 @@
+esp32:
+  board: esp-wrover-kit
+  framework:
+    type: arduino
+
+packages:
+  battery: !include battery.yaml
+  controls: !include controls.yaml
+  status_led: !include status_led.yaml
+  audio: !include audio.yaml
+  other: !include other.yaml
+
+esphome:
+  on_boot:
+    - media_player.volume_set: 30%
+    - script.execute: set_status_connecting
+    - script.wait: set_status_connecting
