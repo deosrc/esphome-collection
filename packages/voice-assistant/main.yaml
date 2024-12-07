@@ -1,0 +1,205 @@
+# Based on https://raw.githubusercontent.com/esphome/wake-word-voice-assistants/refs/heads/main/esp32-s3-box-3/esp32-s3-box-3.yaml
+substitutions:
+  media_player_id: player
+  microphone_id: mic
+
+  # For best performance, download and store this file somewhere local
+  timer_finished_audio_file: https://github.com/esphome/wake-word-voice-assistants/raw/main/sounds/timer_finished.wav
+
+esphome:
+  min_version: 2024.9.0
+  on_boot:
+    priority: 600.0
+    then:
+      - text_sensor.template.publish:
+          id: voice_assistant_phase
+          state: Disconnected
+      - lambda: id(va).set_noise_suppression_level(id(assist_noise_suppression_level).state);
+      - lambda: id(va).set_auto_gain(id(assist_auto_gain).state);
+
+voice_assistant:
+  id: va
+  microphone: ${microphone_id}
+  media_player: ${media_player_id}
+  auto_gain: 31dBFS
+  volume_multiplier: 2.0
+  on_start:
+    - logger.log:
+        format: Start
+        tag: voice_assistant
+        level: INFO
+    - text_sensor.template.publish:
+        id: voice_assistant_phase
+        state: Idle
+  on_listening:
+    - text_sensor.template.publish:
+        id: voice_assistant_phase
+        state: Listening
+    - text_sensor.template.publish:
+        id: voice_text_request
+        state: "..."
+    - text_sensor.template.publish:
+        id: voice_text_response
+        state: "..."
+  on_stt_vad_end:
+    - text_sensor.template.publish:
+        id: voice_assistant_phase
+        state: Thinking
+  on_stt_end:
+    - text_sensor.template.publish:
+        id: voice_text_request
+        state: !lambda return x;
+  on_tts_start:
+    - text_sensor.template.publish:
+        id: voice_assistant_phase
+        state: Replying
+    - text_sensor.template.publish:
+        id: voice_text_response
+        state: !lambda return x;
+  on_tts_end:
+    - wait_until:
+        media_player.is_playing:
+    - wait_until:
+        not:
+          media_player.is_playing:
+    - logger.log:
+        format: TTS End and no media playing
+        tag: voice_assistant
+        level: INFO
+  on_end:
+    - logger.log:
+        format: Ended
+        tag: voice_assistant
+        level: INFO
+    - wait_until:
+        not:
+          voice_assistant.is_running:
+    - logger.log:
+        format: Ended and not running
+        tag: voice_assistant
+        level: INFO
+    - text_sensor.template.publish:
+        id: voice_assistant_phase
+        state: Muted
+  on_error:
+    - if:
+        condition:
+          voice_assistant.connected:
+        then:
+          - text_sensor.template.publish:
+              id: voice_assistant_phase
+              state: Error
+          - delay: 3s
+          - text_sensor.template.publish:
+              id: voice_assistant_phase
+              state: Idle
+  on_client_connected:
+    - text_sensor.template.publish:
+        id: voice_assistant_phase
+        state: Muted
+  on_client_disconnected:
+    - script.execute: stop_voice_assistant
+    - text_sensor.template.publish:
+        id: voice_assistant_phase
+        state: Disconnected
+  on_timer_finished:
+    - script.execute: stop_voice_assistant
+    - script.wait: stop_voice_assistant
+    - binary_sensor.template.publish:
+        id: timer_ringing
+        state: true
+    - while:
+        condition:
+          binary_sensor.is_on: timer_ringing
+        then:
+          - media_player.play_media:
+              id: ${media_player_id}
+              media_url: ${timer_finished_audio_file}
+          - delay: 1s
+    # TODO: Resume previous mode
+    - text_sensor.template.publish:
+        id: voice_assistant_phase
+        state: Muted
+
+number:
+  - platform: template
+    id: assist_noise_suppression_level
+    name: Assist Noise Suppression Level
+    optimistic: true
+    entity_category: config
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 4
+    step: 1
+    set_action:
+      - lambda: id(va).set_noise_suppression_level(x);
+  - platform: template
+    id: assist_auto_gain
+    name: Assist Auto Gain
+    optimistic: true
+    entity_category: config
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 31
+    step: 1
+    unit_of_measurement: dBFS
+    set_action:
+      - lambda: id(va).set_auto_gain(x);
+
+binary_sensor:
+  - platform: template
+    id: timer_ringing
+    name: Timer Ringing
+    disabled_by_default: true
+    publish_initial_state: true
+
+text_sensor:
+  - id: voice_text_request
+    name: Last Voice Request
+    platform: template
+    entity_category: diagnostic
+    disabled_by_default: true
+  - id: voice_text_response
+    name: Last Voice Response
+    platform: template
+    entity_category: diagnostic
+    disabled_by_default: true
+  - id: voice_assistant_phase
+    name: Voice Assistant Phase
+    platform: template
+    entity_category: diagnostic
+
+script:
+  - id: listen_for_wake_word
+    then:
+      - script.execute: dismiss_ringing_timer
+      - script.execute: stop_voice_assistant
+      - script.wait: stop_voice_assistant
+      - lambda: id(va).set_use_wake_word(true);
+      - voice_assistant.start_continuous:
+  - id: start_listening
+    then:
+      - script.execute: dismiss_ringing_timer
+      - script.execute: stop_voice_assistant
+      - script.wait: stop_voice_assistant
+      - lambda: id(va).set_use_wake_word(false);
+      - voice_assistant.start:
+  - id: stop_voice_assistant
+    then:
+      - script.execute: dismiss_ringing_timer
+      - voice_assistant.stop:
+  - id: dismiss_ringing_timer
+    then:
+      - if:
+          condition:
+            - binary_sensor.is_on: timer_ringing
+          then:
+            - logger.log:
+                format: Dismissing ringing timer
+                tag: dismiss_ringing_timer
+                level: INFO
+            - binary_sensor.template.publish:
+                id: timer_ringing
+                state: false
