@@ -116,10 +116,21 @@ voice_assistant:
               id: ${media_player_id}
               media_url: ${timer_finished_audio_file}
           - delay: 1s
-    # TODO: Resume previous mode
-    - text_sensor.template.publish:
-        id: voice_assistant_phase
-        state: Muted
+    - if:
+        condition:
+          - text_sensor.state:
+              id: activation_mode
+              state: Wake Word
+        then:
+          - logger.log:
+              format: Resuming listening for wake word...
+              tag: voice_assistant
+              level: INFO
+          - script.execute: listen_for_wake_word
+        else:
+          - text_sensor.template.publish:
+              id: voice_assistant_phase
+              state: Muted
 
 number:
   - platform: template
@@ -169,6 +180,12 @@ text_sensor:
   - id: voice_assistant_phase
     name: Voice Assistant Phase
     platform: template
+    icon: mdi:account-voice
+    entity_category: diagnostic
+  - id: activation_mode
+    name: Activation Mode
+    platform: template
+    icon: mdi:account-voice
     entity_category: diagnostic
 
 script:
@@ -177,6 +194,9 @@ script:
       - script.execute: dismiss_ringing_timer
       - script.execute: stop_voice_assistant
       - script.wait: stop_voice_assistant
+      - text_sensor.template.publish:
+          id: activation_mode
+          state: Wake Word
       - lambda: id(va).set_use_wake_word(true);
       - voice_assistant.start_continuous:
   - id: start_listening
@@ -184,6 +204,9 @@ script:
       - script.execute: dismiss_ringing_timer
       - script.execute: stop_voice_assistant
       - script.wait: stop_voice_assistant
+      - text_sensor.template.publish:
+          id: activation_mode
+          state: Action
       - lambda: id(va).set_use_wake_word(false);
       - voice_assistant.start:
   - id: stop_voice_assistant
