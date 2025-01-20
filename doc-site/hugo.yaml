@@ -8,3 +8,5 @@ module:
 
 params:
   offlineSearch: true
+  ui:
+    showLightDarkModeMenu: true
