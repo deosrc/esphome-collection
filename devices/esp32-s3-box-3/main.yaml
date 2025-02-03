@@ -1,0 +1,117 @@
+esphome:
+  min_version: '2024.4.0'
+
+esp32:
+  board: esp32s3box
+  flash_size: 16MB
+  framework:
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: "y"
+      CONFIG_ESP32S3_DATA_CACHE_64KB: "y"
+      CONFIG_ESP32S3_DATA_CACHE_LINE_64B: "y"
+      CONFIG_AUDIO_BOARD_CUSTOM: "y"
+      CONFIG_ESP32_S3_BOX_3_BOARD: "y"
+    components:
+      - name: esp32_s3_box_3_board
+        source: github://X-Ryl669/esp32-s3-box-3-board@main
+        refresh: 0s
+
+logger:
+  hardware_uart: USB_SERIAL_JTAG
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+external_components:
+  - source: github://X-Ryl669/esphome@at581x
+    components: at581x
+    refresh: 60s
+  - source: github://pr#5894 # https://github.com/esphome/esphome/pull/5894 - Closed as stale
+    components: [ahtxx]
+    refresh: 60s
+
+esp_adf:
+  board: esp32s3box3
+
+microphone:
+  - platform: esp_adf
+    id: box_mic
+
+speaker:
+  - platform: esp_adf
+    id: box_speaker
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO1
+      mode: INPUT_PULLUP
+      inverted: true
+    id: mic_muted
+    name: Microphone Muted
+    icon: "mdi:microphone-off"
+
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: true
+    id: boot_button
+    name: Boot Button
+    entity_category: diagnostic
+
+  - platform: gt911
+    name: Touch Button
+    index: 0
+
+output:
+  - platform: ledc
+    pin: GPIO47
+    id: backlight_output
+
+light:
+  - platform: monochromatic
+    id: backlight
+    name: Screen Backlight
+    icon: "mdi:television"
+    entity_category: config
+    output: backlight_output
+    restore_mode: RESTORE_DEFAULT_ON
+    default_transition_length: 250ms
+
+spi:
+  - id: spi_bus
+    clk_pin: 7
+    mosi_pin: 6
+
+display:
+  - platform: ili9xxx
+    id: screen
+    model: S3BOX
+    invert_colors: false
+    data_rate: 40MHz
+    cs_pin: 5
+    dc_pin: 4
+    reset_pin:
+      number: 48
+      inverted: true
+    update_interval: never
+
+touchscreen:
+  - platform: gt911
+    id: touch
+    display: screen
+    i2c_id: bus_a
+    interrupt_pin: GPIO3
+    calibration:
+      x_max: 240
+      y_max: 320
+    on_update:
+      - lambda: |-
+          for (auto touch: touches)  {
+              if (touch.state <= 2) {
+                ESP_LOGI("screen", "Touch points: id=%d x=%d y=%d", touch.id, touch.x, touch.y);
+              }
+          }
