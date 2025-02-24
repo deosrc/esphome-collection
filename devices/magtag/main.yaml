@@ -1,0 +1,105 @@
+output:
+  - id: status_led_output
+    platform: gpio
+    pin: 13
+  - id: speaker_output
+    platform: ledc
+    pin: 17
+
+## Power Switches
+switch:
+  - id: neopixel_power
+    platform: gpio
+    name: Neopixel Power
+    # Also controls light sensor
+    pin:
+      number: 21
+      inverted: true
+    on_turn_on:
+      - component.update: light_sensor
+  - id: speaker_power
+    platform: gpio
+    pin: 16
+    name: Speaker Power
+
+## Buttons
+binary_sensor:
+  - id: button_1
+    platform: gpio
+    name: Button 1
+    pin:
+      number: 15
+      inverted: true
+      mode:
+        pullup: true
+        input: true
+  - id: button_2
+    platform: gpio
+    name: Button 2
+    pin:
+      number: 14
+      inverted: true
+      mode:
+        pullup: true
+        input: true
+  - id: button_3
+    platform: gpio
+    name: Button 3
+    pin:
+      number: 12
+      inverted: true
+      mode:
+        pullup: true
+        input: true
+  - id: button_4
+    platform: gpio
+    name: Button 4
+    pin:
+      number: 11
+      inverted: true
+      mode:
+        pullup: true
+        input: true
+
+## LEDs
+light:
+  - id: status_led
+    platform: binary
+    output: status_led_output
+    name: Status LED
+  - id: leds
+    platform: fastled_clockless
+    chipset: NEOPIXEL
+    pin: 01
+    num_leds: 4
+    name: Neopixel LEDs
+
+## Screen
+spi:
+  clk_pin: 36
+  mosi_pin: 35
+  miso_pin: 37
+
+display:
+  - id: screen
+    platform: waveshare_epaper
+    cs_pin: 8
+    dc_pin: 7
+    busy_pin: 5
+    reset_pin: 6
+    model: 2.90in-b
+    update_interval: 10s
+    rotation: 270°
+
+## Light Sensor
+sensor:
+  - id: light_sensor
+    platform: adc
+    name: Light Sensor
+    pin: 3
+    update_interval: 1s
+
+## Speaker
+# TODO: Doesn't seem to work with Arduino but LEDs don't work with IDF
+rtttl:
+  output: speaker
