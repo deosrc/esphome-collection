@@ -88,7 +88,6 @@ display:
     busy_pin: GPIO5
     reset_pin: GPIO6
     model: 2.90in-b
-    update_interval: 10s
     rotation: 270°
 
 ## Light Sensor
