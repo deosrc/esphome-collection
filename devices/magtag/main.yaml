@@ -8,9 +8,9 @@ output:
 
 ## Power Switches
 switch:
-  - id: neopixel_power
+  - id: neopixel_and_light_sensor_power
     platform: gpio
-    name: Neopixel Power
+    name: Neopixel and Light Sensor Power
     # Also controls light sensor
     pin:
       number: 21
@@ -67,12 +67,12 @@ light:
     platform: binary
     output: status_led_output
     name: Status LED
-  - id: leds
+  - id: header_lights
     platform: fastled_clockless
     chipset: NEOPIXEL
     pin: 01
     num_leds: 4
-    name: Neopixel LEDs
+    name: Header Lights
 
 ## Screen
 spi:
