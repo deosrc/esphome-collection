@@ -1,10 +1,10 @@
 output:
   - id: status_led_output
     platform: gpio
-    pin: 13
+    pin: GPIO13
   - id: speaker_output
     platform: ledc
-    pin: 17
+    pin: GPIO17
 
 ## Power Switches
 switch:
@@ -13,13 +13,13 @@ switch:
     name: Neopixel and Light Sensor Power
     # Also controls light sensor
     pin:
-      number: 21
+      number: GPIO21
       inverted: true
     on_turn_on:
       - component.update: light_sensor
   - id: speaker_power
     platform: gpio
-    pin: 16
+    pin: GPIO16
     name: Speaker Power
 
 ## Buttons
@@ -28,7 +28,7 @@ binary_sensor:
     platform: gpio
     name: Button 1
     pin:
-      number: 15
+      number: GPIO15
       inverted: true
       mode:
         pullup: true
@@ -37,7 +37,7 @@ binary_sensor:
     platform: gpio
     name: Button 2
     pin:
-      number: 14
+      number: GPIO14
       inverted: true
       mode:
         pullup: true
@@ -46,7 +46,7 @@ binary_sensor:
     platform: gpio
     name: Button 3
     pin:
-      number: 12
+      number: GPIO12
       inverted: true
       mode:
         pullup: true
@@ -55,7 +55,7 @@ binary_sensor:
     platform: gpio
     name: Button 4
     pin:
-      number: 11
+      number: GPIO11
       inverted: true
       mode:
         pullup: true
@@ -70,23 +70,23 @@ light:
   - id: header_lights
     platform: fastled_clockless
     chipset: NEOPIXEL
-    pin: 01
+    pin: GPIO01
     num_leds: 4
     name: Header Lights
 
 ## Screen
 spi:
-  clk_pin: 36
-  mosi_pin: 35
-  miso_pin: 37
+  clk_pin: GPIO36
+  mosi_pin: GPIO35
+  miso_pin: GPIO37
 
 display:
   - id: screen
     platform: waveshare_epaper
-    cs_pin: 8
-    dc_pin: 7
-    busy_pin: 5
-    reset_pin: 6
+    cs_pin: GPIO8
+    dc_pin: GPIO7
+    busy_pin: GPIO5
+    reset_pin: GPIO6
     model: 2.90in-b
     update_interval: 10s
     rotation: 270°
@@ -96,7 +96,7 @@ sensor:
   - id: light_sensor
     platform: adc
     name: Light Sensor
-    pin: 3
+    pin: GPIO3
     update_interval: 1s
 
 ## Speaker
