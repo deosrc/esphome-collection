@@ -102,4 +102,4 @@ sensor:
 ## Speaker
 # TODO: Doesn't seem to work with Arduino but LEDs don't work with IDF
 rtttl:
-  output: speaker
+  output: speaker_output
