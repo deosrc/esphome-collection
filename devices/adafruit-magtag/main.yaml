@@ -1,3 +1,6 @@
+esphome:
+  min_version: 2025.2.0
+
 output:
   - id: status_led_output
     platform: gpio
@@ -87,8 +90,8 @@ display:
     dc_pin: GPIO7
     busy_pin: GPIO5
     reset_pin: GPIO6
-    model: 2.90in-b
-    rotation: 270°
+    model: gdew029t5
+    rotation: 270
 
 ## Light Sensor
 sensor:
