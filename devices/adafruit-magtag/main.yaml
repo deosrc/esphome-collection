@@ -92,7 +92,6 @@ display:
     reset_pin: GPIO6
     model: gdew029t5
     rotation: 270
-    full_update_every: 2
 
 ## Light Sensor
 sensor:
