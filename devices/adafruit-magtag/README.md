@@ -8,9 +8,10 @@ ESPHome base device configuration for [Adafruit Magtag](https://www.adafruit.com
 - [x] Status LED (Red LED on rear)
 - [x] Neopixel LEDs
 - [x] Screen
-- [x] Light Sensor (requires LED power switch to be on)
-- [ ] Speaker (works but only in IDF which then breaks LEDs)
+- [x] Light Sensor
+- [x] Speaker
 - [ ] Accelerometer
+  - Not currently supported by ESPHome ([Issue](https://github.com/esphome/feature-requests/issues/5))
 
 Note that any attachments to the STEMMA ports will need additional configuration based on the attached peripheral.
 
