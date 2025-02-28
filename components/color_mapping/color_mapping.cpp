@@ -13,7 +13,7 @@ esphome::Color esphome::color_mapping::ColorMapping::name_to_color(std::string n
 {
   ColorMap::const_iterator pos = colors_.find(name);
   if (pos == colors_.end()) {
-    esphome::ESP_LOGE(TAG, "Could not convert color '%s' so using default", name);
+    ESP_LOGE(TAG, "Could not convert color '%s' so using default", name);
     return esphome::Color::BLACK;
   } else {
     return pos->second;
