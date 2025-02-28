@@ -25,6 +25,9 @@ psram:
   speed: 80MHz
 
 external_components:
+  - source: github://pr#6486 # https://github.com/esphome/esphome/pull/6486
+    components: esp_adf
+    refresh: 0s
   - source: github://X-Ryl669/esphome@at581x
     components: at581x
     refresh: 60s
