@@ -63,6 +63,7 @@ binary_sensor:
     entity_category: diagnostic
 
   - platform: gt911
+    id: touch_button
     name: Touch Button
     index: 0
 
