@@ -6,6 +6,8 @@ esphome:
   on_boot:
     - script.execute: update_stored_doorbell_rf_sensors
 
+api:
+
 globals:
   - id: doorbell_rf_sync
     type: uint16_t

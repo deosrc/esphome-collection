@@ -10,6 +10,7 @@ ESPHome base device configuration for [Adafruit Magtag](https://www.adafruit.com
 - [x] Screen
 - [x] Light Sensor
 - [x] Speaker
+- [ ] Battery Voltage Sensor
 - [ ] Accelerometer
   - Not currently supported by ESPHome ([Issue](https://github.com/esphome/feature-requests/issues/5))
 
