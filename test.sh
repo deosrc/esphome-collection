@@ -25,7 +25,7 @@ echo "    ESPHome Version: $ESPHOME_VERSION"
 pushd "$PWD/$WORK_DIR"
 
 echo "Running clean command..."
-docker run --rm -v "${PWD}":/config -it ghcr.io/esphome/esphome:$ESPHOME_VERSION clean "./tests/$TEST_FILE"
+docker run --rm -v "${PWD}":/config -t ghcr.io/esphome/esphome:$ESPHOME_VERSION clean "./tests/$TEST_FILE"
 RESULT=$?
 if [ $RESULT -ne 0 ]; then
   echo "Clean command failed." >&2
@@ -33,7 +33,7 @@ if [ $RESULT -ne 0 ]; then
 fi
 
 echo "Running compile command..."
-docker run --rm -v "${PWD}":/config -it ghcr.io/esphome/esphome:$ESPHOME_VERSION compile "./tests/$TEST_FILE"
+docker run --rm -v "${PWD}":/config -t ghcr.io/esphome/esphome:$ESPHOME_VERSION compile "./tests/$TEST_FILE"
 RESULT=$?
 if [ $RESULT -ne 0 ]; then
   echo "Clean command failed." >&2
