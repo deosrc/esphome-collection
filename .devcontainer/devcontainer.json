@@ -8,5 +8,12 @@
       "dockerDashComposeVersion": "none"
     }
   },
-  "postCreateCommand": "docker pull ghcr.io/esphome/esphome"
+  "postCreateCommand": "docker pull ghcr.io/esphome/esphome",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "EditorConfig.EditorConfig"
+      ]
+    }
+  }
 }
