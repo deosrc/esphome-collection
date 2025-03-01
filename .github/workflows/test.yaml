@@ -1,0 +1,28 @@
+name: Test
+
+on:
+  workflow_dispatch: # Manual executions
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        esphome_version:
+          - 2025.2.0
+        test_file:
+          - ./devices/adafruit-magtag/tests/main.yaml
+          - ./devices/localdeck/tests/main.yaml
+          - ./devices/sonoff-rf-bridge/tests/doorbell.yaml
+          - ./devices/sonoff-rf-bridge/tests/last-rf-received.yaml
+          - ./devices/sonoff-rf-bridge/tests/main.yaml
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+
+      - name: Run test script
+        run: ./test.sh -t ${{ matrix.test_file }} -v ${{ matrix.esphome_version }}

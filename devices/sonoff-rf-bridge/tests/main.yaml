@@ -1,0 +1,5 @@
+esphome:
+  name: test
+
+packages:
+  device: !include ../main.yaml

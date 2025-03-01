@@ -1,0 +1,8 @@
+esphome:
+  name: test
+
+wifi:
+  ssid: test
+
+packages:
+  doorbell: !include ../doorbell.yaml

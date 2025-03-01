@@ -1,0 +1,19 @@
+{
+  "name": "ESPHome",
+  "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true,
+      "version": "20.10",
+      "dockerDashComposeVersion": "none"
+    }
+  },
+  "postCreateCommand": "docker pull ghcr.io/esphome/esphome",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "EditorConfig.EditorConfig"
+      ]
+    }
+  }
+}

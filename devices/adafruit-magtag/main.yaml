@@ -1,6 +1,11 @@
 esphome:
   min_version: 2025.2.0
 
+esp32:
+  board: adafruit_magtag29_esp32s2
+  framework:
+    type: arduino
+
 output:
   - id: status_led_output
     platform: gpio
