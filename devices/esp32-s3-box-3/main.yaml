@@ -38,6 +38,13 @@ external_components:
 esp_adf:
   board: esp32s3box3
 
+i2c:
+  - id: bus_a
+    sda: GPIO08
+    scl: GPIO18
+    scan: true
+    frequency: 100kHz
+
 microphone:
   - platform: esp_adf
     id: box_mic

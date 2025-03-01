@@ -15,12 +15,6 @@ esphome:
             power_consumption: 70uA
 
 i2c:
-  - id: bus_a
-    sda: GPIO08
-    scl: GPIO18
-    scan: true
-    frequency: 100kHz
-
   - id: bus_b
     sda: GPIO41
     scl: GPIO40
