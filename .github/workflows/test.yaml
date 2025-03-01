@@ -15,6 +15,7 @@ jobs:
         esphome_version:
           - 2025.2.0
         work_dir:
+          - ./devices/adafruit-magtag
           - ./devices/localdeck
     steps:
       - name: Check out the repository to the runner
