@@ -4,7 +4,7 @@ ESPHOME_VERSION=latest
 WORK_DIR=""
 TEST_FILE=main.yaml
 
-while getopts ":d:t:v" opt; do
+while getopts ":d:t:v:" opt; do
   case $opt in
     d) WORK_DIR=$OPTARG ;;
     t) TEST_FILE=$OPTARG ;;
