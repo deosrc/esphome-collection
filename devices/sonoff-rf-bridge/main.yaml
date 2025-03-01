@@ -15,11 +15,11 @@ uart:
 rf_bridge:
 
 output:
-  - platform: gpio
+  - id: output_led
+    platform: gpio
     pin:
       number: GPIO13
       inverted: true
-    id: "output_led"
 
 light:
   - platform: binary
