@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  workflow_dispatch: # Manual executions
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        esphome_version:
+          - 2025.2.0
+        work_dir:
+          - ./devices/localdeck
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+
+      - name: Run test script
+        run: ./test.sh -d ${{ matrix.work_dir }} -v ${{ matrix.esphome_version }}
