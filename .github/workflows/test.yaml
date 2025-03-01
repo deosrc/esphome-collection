@@ -14,13 +14,14 @@ jobs:
       matrix:
         esphome_version:
           - 2025.2.0
-        work_dir:
-          - ./devices/adafruit-magtag
-          - ./devices/localdeck
-          - ./devices/sonoff-rf-bridge
+        test_file:
+          - ./devices/adafruit-magtag/tests/main.yaml
+          - ./devices/localdeck/tests/main.yaml
+          - ./devices/sonoff-rf-bridge/tests/last-rf-received.yaml
+          - ./devices/sonoff-rf-bridge/tests/main.yaml
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
       - name: Run test script
-        run: ./test.sh -d ${{ matrix.work_dir }} -v ${{ matrix.esphome_version }}
+        run: ./test.sh -t ${{ matrix.test_file }} -v ${{ matrix.esphome_version }}
