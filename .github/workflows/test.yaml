@@ -17,6 +17,7 @@ jobs:
         work_dir:
           - ./devices/adafruit-magtag
           - ./devices/localdeck
+          - ./devices/sonoff-rf-bridge
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
