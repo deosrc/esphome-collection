@@ -60,13 +60,24 @@ number:
 
 ## Parameters
 
-- **control_component_id** (Required, string): The ID of the component which
-  controls the display brightness (e.g. the ID of the light which controls the backlight.)
-- **home_assistant_entity_id** (Required, string): The ID of the entity within
-  Home Assistant to use for the brightness calculation.
-- **offset** (Optional, integer): An amount to add (or subtract if negative)
-  from the sensor value. This happens before the multiplier.
-- **brightness_multiplier** (Optional, float): A multiplier to apply to the
-  sensor value to determine the display brightness.
-- **min_brightness** (Optional, integer): The minimum brightness in percent.
-  Defaults to `10`.
+- **control_component_id** (Required, string)
+
+  The ID of the component which controls the display brightness (e.g. the ID of
+  the light which controls the backlight.)
+
+- **home_assistant_entity_id** (Required, string)
+
+  The ID of the entity within Home Assistant to use for the brightness calculation.
+
+- **offset** (Optional, integer)
+
+  An amount to add (or subtract if negative) from the sensor value. This happens
+  before the multiplier.
+
+- **brightness_multiplier** (Optional, float)
+
+  A multiplier to apply to the sensor value to determine the display brightness.
+
+- **min_brightness** (Optional, integer)
+
+  The minimum brightness in percent. Defaults to `10`.
