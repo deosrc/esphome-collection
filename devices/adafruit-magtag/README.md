@@ -14,7 +14,8 @@ ESPHome base device configuration for [Adafruit Magtag](https://www.adafruit.com
 - [ ] Accelerometer
   - Not currently supported by ESPHome ([Issue](https://github.com/esphome/feature-requests/issues/5))
 
-Note that any attachments to the STEMMA ports will need additional configuration based on the attached peripheral.
+Note that any attachments to the STEMMA ports will need additional configuration
+based on the attached peripheral.
 
 ## Usage
 

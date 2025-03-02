@@ -15,11 +15,13 @@
   "fenced-code-language": {
     "allowed_languages": [
       "bash",
+      "cpp",
       "html",
       "javascript",
       "json",
       "markdown",
-      "text"
+      "text",
+      "yaml"
     ],
     "language_only": true
   },
@@ -30,7 +32,6 @@
     "style": "---"
   },
   "line-length": {
-    "strict": true,
     "code_blocks": false
   },
   "link-image-style": {
@@ -55,9 +56,6 @@
       "markdownlint",
       "Node.js"
     ]
-  },
-  "reference-links-images": {
-    "shortcut_syntax": true
   },
   "strong-style": {
     "style": "asterisk"
