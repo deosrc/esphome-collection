@@ -2,7 +2,9 @@
 
 > :warning: **Experimental**
 >
-> The chips controlling this component has known issues with timing. This implementation is also developed as far as needed for a "good enough" use case.
+> The chips controlling this component has known issues with timing. This
+> implementation is also developed as far as needed for a "good enough" use
+> case.
 >
 > **Expect issues when using**
 
@@ -23,4 +25,5 @@ display:
 ### Lambda Methods
 
 - `set_on(bool)`: Turns the LED Bar on or off.
-- `set_led(uint8_t, bool)`: Sets a single LED either on or off. Has no effect if `set_on(false)`.
+- `set_led(uint8_t, bool)`: Sets a single LED either on or off.
+  Has no effect if `set_on(false)`.
