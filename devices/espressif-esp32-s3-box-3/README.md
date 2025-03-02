@@ -2,7 +2,10 @@
 
 ESPHome base device configuration for the [Espressif ESP32-S3-BOX-3](https://www.espressif.com/en/news/ESP32-S3-BOX-3).
 
-> :warning: This configuration uses ESPHome components from 3rd party repositories, or that have not yet merged into the main ESPHome project. Use with caution.
+> :warning: **Use with caution.**
+>
+> This configuration uses ESPHome components from 3rd party
+> repositories, or that have not yet merged into the main ESPHome project.
 
 ## Usage
 
