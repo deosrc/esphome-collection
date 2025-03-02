@@ -1,10 +1,12 @@
 # ESPHome Devices Collection
 
-This folder contains ESPHome base configurations for various devices. The can be used as a building block for your ESPHome projects.
+This folder contains ESPHome base configurations for various devices. The can be
+used as a building block for your ESPHome projects.
 
 ## Usage
 
-All configurations are intended to be imported as packages. The configuration can then be modified using the `!extend` tag.
+All configurations are intended to be imported as packages. The configuration
+can then be modified using the `!extend` tag.
 
 ```yaml
 packages:

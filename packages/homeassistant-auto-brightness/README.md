@@ -4,7 +4,8 @@ Controls the brightness of components based on a Home Assistant sensor.
 
 ## Setup
 
-Setup is dependent on the type of component which controls the brightness of the device.
+Setup is dependent on the type of component which controls the brightness of the
+device.
 
 ### Light Component
 
@@ -22,7 +23,8 @@ packages:
 
 ### Number Component
 
-For a device where the brightness is set using a number component. The number component should be configured using units of percent where 100 is max brightness.
+For a device where the brightness is set using a number component. The number
+component should be configured using units of percent where 100 is max brightness.
 
 ```yaml
 packages:
@@ -58,8 +60,24 @@ number:
 
 ## Parameters
 
-- **control_component_id** (Required, string): The ID of the component which controls the display brightness (e.g. the ID of the light which controls the backlight.)
-- **home_assistant_entity_id** (Required, string): The ID of the entity within Home Assistant to use for the brightness calculation.
-- **offset** (Optional, integer): An amount to add (or subtract if negative) from the sensor value. This happens before the multiplier.
-- **brightness_multiplier** (Optional, float): A multiplier to apply to the sensor value to determine the display brightness.
-- **min_brightness** (Optional, integer): The minimum brightness in percent. Defaults to `10`.
+- **control_component_id** (Required, string)
+
+  The ID of the component which controls the display brightness (e.g. the ID of
+  the light which controls the backlight.)
+
+- **home_assistant_entity_id** (Required, string)
+
+  The ID of the entity within Home Assistant to use for the brightness calculation.
+
+- **offset** (Optional, integer)
+
+  An amount to add (or subtract if negative) from the sensor value. This happens
+  before the multiplier.
+
+- **brightness_multiplier** (Optional, float)
+
+  A multiplier to apply to the sensor value to determine the display brightness.
+
+- **min_brightness** (Optional, integer)
+
+  The minimum brightness in percent. Defaults to `10`.
