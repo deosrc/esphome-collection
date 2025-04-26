@@ -40,11 +40,11 @@ light:
   - id: rgb1
     platform: rgb
     name: RGB1
-    red: output_channel_1
-    green: output_channel_2
-    blue: output_channel_3
+    red: output_ch1
+    green: output_ch2
+    blue: output_ch3
   - id: mc4
     platform: monochromatic
     name: Channel 4
-    output: output_channel4
+    output: output_ch4
 ```

@@ -6,49 +6,49 @@ esp32:
 output:
   - platform: ledc
     pin: GPIO25
-    id: output_channel1
+    id: output_ch1
   - platform: ledc
     pin: GPIO26
-    id: output_channel2
+    id: output_ch2
   - platform: ledc
     pin: GPIO27
-    id: output_channel3
+    id: output_ch3
   - platform: ledc
     pin: GPIO14
-    id: output_channel4
+    id: output_ch4
   - platform: ledc
     pin: GPIO12
-    id: output_channel5
+    id: output_ch5
   - platform: ledc
     pin: GPIO13
-    id: output_channel6
+    id: output_ch6
   - platform: ledc
     pin: GPIO15
-    id: output_channel7
+    id: output_ch7
   - platform: ledc
     pin: GPIO2
-    id: output_channel8
+    id: output_ch8
   - platform: ledc
     pin: GPIO4
-    id: output_channel9
+    id: output_ch9
   - platform: ledc
     pin: GPIO16
-    id: output_channel10
+    id: output_ch10
   - platform: ledc
     pin: GPIO17
-    id: output_channel11
+    id: output_ch11
   - platform: ledc
     pin: GPIO5
-    id: output_channel12
+    id: output_ch12
   - platform: ledc
     pin: GPIO18
-    id: output_channel13
+    id: output_ch13
   - platform: ledc
     pin: GPIO19
-    id: output_channel14
+    id: output_ch14
   - platform: ledc
     pin: GPIO21
-    id: output_channel15
+    id: output_ch15
   - platform: ledc
     pin: GPIO22
-    id: output_channel16
+    id: output_ch16
