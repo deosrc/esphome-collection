@@ -1,0 +1,54 @@
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+output:
+  - platform: ledc
+    pin: GPIO25
+    id: output_channel1
+  - platform: ledc
+    pin: GPIO26
+    id: output_channel2
+  - platform: ledc
+    pin: GPIO27
+    id: output_channel3
+  - platform: ledc
+    pin: GPIO14
+    id: output_channel4
+  - platform: ledc
+    pin: GPIO12
+    id: output_channel5
+  - platform: ledc
+    pin: GPIO13
+    id: output_channel6
+  - platform: ledc
+    pin: GPIO15
+    id: output_channel7
+  - platform: ledc
+    pin: GPIO2
+    id: output_channel8
+  - platform: ledc
+    pin: GPIO4
+    id: output_channel9
+  - platform: ledc
+    pin: GPIO16
+    id: output_channel10
+  - platform: ledc
+    pin: GPIO17
+    id: output_channel11
+  - platform: ledc
+    pin: GPIO5
+    id: output_channel12
+  - platform: ledc
+    pin: GPIO18
+    id: output_channel13
+  - platform: ledc
+    pin: GPIO19
+    id: output_channel14
+  - platform: ledc
+    pin: GPIO21
+    id: output_channel15
+  - platform: ledc
+    pin: GPIO22
+    id: output_channel16
