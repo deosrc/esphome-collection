@@ -1,0 +1,81 @@
+light:
+  - platform: monochromatic
+    id: light_ch1
+    name: Channel 1
+    output: output_ch1
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch2
+    name: Channel 2
+    output: output_ch2
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch3
+    name: Channel 3
+    output: output_ch3
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch4
+    name: Channel 4
+    output: output_ch4
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch5
+    name: Channel 5
+    output: output_ch5
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch6
+    name: Channel 6
+    output: output_ch6
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch7
+    name: Channel 7
+    output: output_ch7
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch8
+    name: Channel 8
+    output: output_ch8
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch9
+    name: Channel 9
+    output: output_ch9
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch10
+    name: Channel 10
+    output: output_ch10
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch11
+    name: Channel 11
+    output: output_ch11
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch12
+    name: Channel 12
+    output: output_ch12
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch13
+    name: Channel 13
+    output: output_ch13
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch14
+    name: Channel 14
+    output: output_ch14
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch15
+    name: Channel 15
+    output: output_ch15
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_ch16
+    name: Channel 16
+    output: output_ch16
+    disabled_by_default: true
