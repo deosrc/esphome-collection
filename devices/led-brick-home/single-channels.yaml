@@ -1,0 +1,81 @@
+light:
+  - platform: monochromatic
+    id: light_channel_1
+    name: Channel 1
+    output: output_channel1
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_2
+    name: Channel 2
+    output: output_channel2
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_3
+    name: Channel 3
+    output: output_channel3
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_4
+    name: Channel 4
+    output: output_channel4
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_5
+    name: Channel 5
+    output: output_channel5
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_6
+    name: Channel 6
+    output: output_channel6
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_7
+    name: Channel 7
+    output: output_channel7
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_8
+    name: Channel 8
+    output: output_channel8
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_9
+    name: Channel 9
+    output: output_channel9
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_10
+    name: Channel 10
+    output: output_channel10
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_11
+    name: Channel 11
+    output: output_channel11
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_12
+    name: Channel 12
+    output: output_channel12
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_13
+    name: Channel 13
+    output: output_channel13
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_14
+    name: Channel 14
+    output: output_channel14
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_15
+    name: Channel 15
+    output: output_channel15
+    disabled_by_default: true
+  - platform: monochromatic
+    id: light_channel_16
+    name: Channel 16
+    output: output_channel16
+    disabled_by_default: true
