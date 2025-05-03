@@ -29,6 +29,8 @@ jobs:
           - ./devices/adafruit-magtag/tests/main.yaml
           - ./devices/espressif-esp32-s3-box-3/tests/main.yaml
           - ./devices/espressif-esp32-s3-box-3/tests/sensor.yaml
+          - ./devices/led-brick-home/tests/main.yaml
+          - ./devices/led-brick-home/tests/single-channels.yaml
           - ./devices/localdeck/tests/main.yaml
           - ./devices/sonoff-rf-bridge/tests/doorbell.yaml
           - ./devices/sonoff-rf-bridge/tests/last-rf-received.yaml

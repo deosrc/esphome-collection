@@ -1,0 +1,60 @@
+esp32:
+  board: esp32dev
+
+output:
+  - platform: ledc
+    pin: GPIO25
+    id: output_ch1
+  - platform: ledc
+    pin: GPIO26
+    id: output_ch2
+  - platform: ledc
+    pin: GPIO27
+    id: output_ch3
+  - platform: ledc
+    pin: GPIO14
+    id: output_ch4
+  - platform: ledc
+    pin:
+      number: GPIO12
+      ignore_strapping_warning: true
+    id: output_ch5
+  - platform: ledc
+    pin: GPIO13
+    id: output_ch6
+  - platform: ledc
+    pin:
+      number: GPIO15
+      ignore_strapping_warning: true
+    id: output_ch7
+  - platform: ledc
+    pin:
+      number: GPIO2
+      ignore_strapping_warning: true
+    id: output_ch8
+  - platform: ledc
+    pin: GPIO4
+    id: output_ch9
+  - platform: ledc
+    pin: GPIO16
+    id: output_ch10
+  - platform: ledc
+    pin: GPIO17
+    id: output_ch11
+  - platform: ledc
+    pin:
+      number: GPIO5
+      ignore_strapping_warning: true
+    id: output_ch12
+  - platform: ledc
+    pin: GPIO18
+    id: output_ch13
+  - platform: ledc
+    pin: GPIO19
+    id: output_ch14
+  - platform: ledc
+    pin: GPIO21
+    id: output_ch15
+  - platform: ledc
+    pin: GPIO22
+    id: output_ch16
