@@ -27,6 +27,8 @@ jobs:
           - 2025.2.0
         test_file:
           - ./devices/adafruit-magtag/tests/main.yaml
+          - ./devices/espressif-esp32-s3-box-3/tests/main.yaml
+          - ./devices/espressif-esp32-s3-box-3/tests/sensor.yaml
           - ./devices/led-brick-home/tests/main.yaml
           - ./devices/led-brick-home/tests/single-channels.yaml
           - ./devices/localdeck/tests/main.yaml
