@@ -10,12 +10,6 @@ esp32:
       CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: "y"
       CONFIG_ESP32S3_DATA_CACHE_64KB: "y"
       CONFIG_ESP32S3_DATA_CACHE_LINE_64B: "y"
-      CONFIG_AUDIO_BOARD_CUSTOM: "y"
-      CONFIG_ESP32_S3_BOX_3_BOARD: "y"
-    components:
-      - name: esp32_s3_box_3_board
-        source: github://X-Ryl669/esp32-s3-box-3-board@main
-        refresh: 0s
 
 logger:
   hardware_uart: USB_SERIAL_JTAG
@@ -24,34 +18,47 @@ psram:
   mode: octal
   speed: 80MHz
 
-external_components:
-  - source: github://pr#6486 # https://github.com/esphome/esphome/pull/6486
-    components: esp_adf
-    refresh: 0s
-  - source: github://X-Ryl669/esphome@at581x
-    components: at581x
-    refresh: 60s
-  - source: github://pr#5894 # https://github.com/esphome/esphome/pull/5894 - Closed as stale
-    components: [ahtxx]
-    refresh: 60s
-
-esp_adf:
-  board: esp32s3box3
-
 i2c:
   - id: bus_a
-    sda: GPIO08
+    sda: GPIO8
     scl: GPIO18
-    scan: true
-    frequency: 100kHz
+
+i2s_audio:
+  - id: i2s_audio_bus
+    i2s_lrclk_pin: GPIO45
+    i2s_bclk_pin: GPIO17
+    i2s_mclk_pin: GPIO2
+
+audio_adc:
+  - platform: es7210
+    id: es7210_adc
+    bits_per_sample: 16bit
+    sample_rate: 16000
+
+audio_dac:
+  - platform: es8311
+    id: es8311_dac
+    bits_per_sample: 16bit
+    sample_rate: 48000
 
 microphone:
-  - platform: esp_adf
+  - platform: i2s_audio
     id: box_mic
+    sample_rate: 16000
+    i2s_din_pin: GPIO16
+    bits_per_sample: 16bit
+    adc_type: external
 
 speaker:
-  - platform: esp_adf
+  - platform: i2s_audio
     id: box_speaker
+    i2s_dout_pin: GPIO15
+    dac_type: external
+    sample_rate: 48000
+    bits_per_sample: 16bit
+    channel: left
+    audio_dac: es8311_dac
+    buffer_duration: 100ms
 
 binary_sensor:
   - platform: gpio
