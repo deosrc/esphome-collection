@@ -30,30 +30,30 @@ i2s_audio:
     i2s_mclk_pin: GPIO2
 
 audio_adc:
-  - platform: es7210
-    id: es7210_adc
+  - id: es7210_adc
+    platform: es7210
     i2c_id: bus_a
     bits_per_sample: 16bit
     sample_rate: 16000
 
 audio_dac:
-  - platform: es8311
-    id: es8311_dac
+  - id: es8311_dac
+    platform: es8311
     i2c_id: bus_a
     bits_per_sample: 16bit
     sample_rate: 48000
 
 microphone:
-  - platform: i2s_audio
-    id: box_mic
+  - id: box_mic
+    platform: i2s_audio
     sample_rate: 16000
     i2s_din_pin: GPIO16
     bits_per_sample: 16bit
     adc_type: external
 
 speaker:
-  - platform: i2s_audio
-    id: box_speaker
+  - id: box_speaker
+    platform: i2s_audio
     i2s_dout_pin: GPIO15
     dac_type: external
     sample_rate: 48000
@@ -63,38 +63,38 @@ speaker:
     buffer_duration: 100ms
 
 binary_sensor:
-  - platform: gpio
+  - id: mic_muted
+    platform: gpio
     pin:
       number: GPIO1
       mode: INPUT_PULLUP
       inverted: true
-    id: mic_muted
     name: Microphone Muted
     icon: "mdi:microphone-off"
 
-  - platform: gpio
+  - id: boot_button
+    platform: gpio
     pin:
       number: GPIO0
       mode: INPUT_PULLUP
       inverted: true
       ignore_strapping_warning: true
-    id: boot_button
     name: Boot Button
     entity_category: diagnostic
 
-  - platform: gt911
-    id: touch_button
+  - id: touch_button
+    platform: gt911
     name: Touch Button
     index: 0
 
 output:
-  - platform: ledc
+  - id: backlight_output
+    platform: ledc
     pin: GPIO47
-    id: backlight_output
 
 light:
-  - platform: monochromatic
-    id: backlight
+  - id: backlight
+    platform: monochromatic
     name: Screen Backlight
     icon: "mdi:television"
     entity_category: config
@@ -108,8 +108,8 @@ spi:
     mosi_pin: GPIO6
 
 display:
-  - platform: ili9xxx
-    id: screen
+  - id: screen
+    platform: ili9xxx
     model: S3BOX
     invert_colors: false
     data_rate: 40MHz
@@ -121,8 +121,8 @@ display:
     update_interval: never
 
 touchscreen:
-  - platform: gt911
-    id: touch
+  - id: touch
+    platform: gt911
     display: screen
     i2c_id: bus_a
     interrupt_pin:
