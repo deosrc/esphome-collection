@@ -32,12 +32,14 @@ i2s_audio:
 audio_adc:
   - platform: es7210
     id: es7210_adc
+    i2c_id: bus_a
     bits_per_sample: 16bit
     sample_rate: 16000
 
 audio_dac:
   - platform: es8311
     id: es8311_dac
+    i2c_id: bus_a
     bits_per_sample: 16bit
     sample_rate: 48000
 
