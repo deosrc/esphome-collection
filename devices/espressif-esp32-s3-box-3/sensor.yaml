@@ -1,0 +1,59 @@
+esphome:
+  on_boot:
+    - priority: 200
+      then:
+        - at581x.settings:
+            id: waveradar
+            hw_frontend_reset: false
+            frequency: 5800Mhz
+            sensing_distance: 200 # 0-1023
+            poweron_selfcheck_time: 2s
+            protect_time: 1s
+            trigger_base: 500ms
+            trigger_keep: 30s
+            stage_gain: 3 # 0-12 the higher the value the smaller the gain
+            power_consumption: 70uA
+
+external_components:
+  - source: github://pr#5894 # https://github.com/esphome/esphome/pull/5894 - Closed as stale
+    components: [ahtxx]
+    refresh: 60s
+
+i2c:
+  - id: bus_b
+    sda: GPIO41
+    scl: GPIO40
+    sda_pullup_enabled: false
+    scl_pullup_enabled: false
+    scan: true
+    frequency: 100kHz
+
+sensor:
+  - id: temp_and_humidity_sensors
+    platform: ahtxx
+    i2c_id: bus_b
+    type: aht30
+    temperature:
+      name: "Temperature"
+    humidity:
+      name: "Humidity"
+    update_interval: 15s
+
+at581x:
+  id: waveradar
+  i2c_id: bus_b
+
+switch:
+  - id: enable_waveradar
+    platform: at581x
+    at581x_id: waveradar
+    name: "Enable Radar"
+
+binary_sensor:
+  - id: waveradar_presence
+    platform: gpio
+    pin:
+      number: GPIO21
+    name: "Radar Presence"
+    disabled_by_default: false
+    device_class: "occupancy"

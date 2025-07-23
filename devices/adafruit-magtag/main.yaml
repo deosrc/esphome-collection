@@ -1,0 +1,111 @@
+esphome:
+  min_version: 2025.2.0
+
+esp32:
+  board: adafruit_magtag29_esp32s2
+  framework:
+    type: arduino
+
+output:
+  - id: status_led_output
+    platform: gpio
+    pin: GPIO13
+  - id: speaker_output
+    platform: ledc
+    pin: GPIO17
+
+## Power Switches
+switch:
+  - id: neopixel_and_light_sensor_power
+    platform: gpio
+    name: Neopixel and Light Sensor Power
+    # Also controls light sensor
+    pin:
+      number: GPIO21
+      inverted: true
+    on_turn_on:
+      - component.update: light_sensor
+  - id: speaker_power
+    platform: gpio
+    pin: GPIO16
+    name: Speaker Power
+
+## Buttons
+binary_sensor:
+  - id: button_1
+    platform: gpio
+    name: Button 1
+    pin:
+      number: GPIO15
+      inverted: true
+      mode:
+        pullup: true
+        input: true
+  - id: button_2
+    platform: gpio
+    name: Button 2
+    pin:
+      number: GPIO14
+      inverted: true
+      mode:
+        pullup: true
+        input: true
+  - id: button_3
+    platform: gpio
+    name: Button 3
+    pin:
+      number: GPIO12
+      inverted: true
+      mode:
+        pullup: true
+        input: true
+  - id: button_4
+    platform: gpio
+    name: Button 4
+    pin:
+      number: GPIO11
+      inverted: true
+      mode:
+        pullup: true
+        input: true
+
+## LEDs
+light:
+  - id: status_led
+    platform: binary
+    output: status_led_output
+    name: Status LED
+  - id: header_lights
+    platform: fastled_clockless
+    chipset: NEOPIXEL
+    pin: GPIO01
+    num_leds: 4
+    name: Header Lights
+
+## Screen
+spi:
+  clk_pin: GPIO36
+  mosi_pin: GPIO35
+  miso_pin: GPIO37
+
+display:
+  - id: screen
+    platform: waveshare_epaper
+    cs_pin: GPIO8
+    dc_pin: GPIO7
+    busy_pin: GPIO5
+    reset_pin: GPIO6
+    model: gdew029t5
+    rotation: 270
+
+## Light Sensor
+sensor:
+  - id: light_sensor
+    platform: adc
+    name: Light Sensor
+    pin: GPIO3
+    update_interval: 1s
+
+## Speaker
+rtttl:
+  output: speaker_output

@@ -35,9 +35,16 @@ auto color = id(color_map).name_to_color(playerColor);
 
 ## Use with Select components
 
-A typical use case would be to have a select component with a list of colors. A lambda expression then uses the selection to set an LED. To avoid needing a list of colors in multiple places, the component can automatically populate the select components.
+A typical use case would be to have a select component with a list of colors.
+A lambda expression then uses the selection to set an LED. To avoid needing a
+list of colors in multiple places, the component can automatically populate the
+select components.
 
-1. Define the select. You will need to provide at least one option, but this will be removed when the select is updated by the color mapping. If you are specifying an initial value, you will need to ensure it is present in the options list so that validation will pass. You should also manually check that it is present in the color mapping:
+1. Define the select. You will need to provide at least one option, but this
+   will be removed when the select is updated by the color mapping. If you are
+   specifying an initial value, you will need to ensure it is present in the
+   options list so that validation will pass. You should also manually check
+   that it is present in the color mapping:
 
     ```yaml
     select:
@@ -51,7 +58,7 @@ A typical use case would be to have a select component with a list of colors. A 
           - Blue # Will be replaced by color_mapping component, but required for validation.
     ```
 
-1. The ID of the select is then added to the color mapping definition:
+2. The ID of the select is then added to the color mapping definition:
 
     ```yaml
     color_mapping:
@@ -72,4 +79,5 @@ A typical use case would be to have a select component with a list of colors. A 
         # ...
     ```
 
-The select component should contain all of (and only) the defined colors, regardless of the options on the select component.
+The select component should contain all of (and only) the defined colors,
+regardless of the options on the select component.
