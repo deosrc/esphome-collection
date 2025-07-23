@@ -50,6 +50,7 @@ sensor:
         pullup: true
     pin_b:
       number: GPIO3
+      ignore_strapping_warning: true
       mode:
         input: true
         pullup: true
