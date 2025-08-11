@@ -6,8 +6,8 @@ i2s_audio:
       number: GPIO0
       ignore_strapping_warning: true
 
-es8388:
-  preset: raspiaudio_radio
+audio_dac:
+  - platform: es8388
 
 output:
   - platform: gpio

@@ -17,11 +17,6 @@ psram:
   mode: octal
   speed: 80MHz
 
-external_components:
-  - source: github://pr#6956
-    components: [es8388]
-    refresh: 0s
-
 packages:
   controls: !include controls.yaml
   audio: !include audio.yaml
