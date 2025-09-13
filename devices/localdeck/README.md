@@ -11,18 +11,19 @@ packages:
   device: !include _deosrc-collection/devices/localdeck/main.yaml
 ```
 
-### Light Segments
+### Light Segments & Buttons
 
-By default, button lights are provided as a single component. The `light_segments.yaml`
-package is provided which expands the LED strip to individual components:
+By default, the keypad and lights are provided as a component each (one for the
+keypad, one for the buttons). The `light_segments.yaml` and `buttons.yaml` packages
+are available to provide individual components:
 
 ```yaml
 packages:
   device: !include _deosrc-collection/devices/localdeck/main.yaml
+  buttons: !include _deosrc-collection/devices/localdeck/buttons.yaml
   light_segments: !include _deosrc-collection/devices/localdeck/light_segments.yaml
 ```
 
-By default, all components are marked as internal.
-
 Note that strange behaviour can occur if the LED strip component and the segments
-components are controlled independently.
+components are controlled independently. For this reason, individual light components
+are marked as internal.
