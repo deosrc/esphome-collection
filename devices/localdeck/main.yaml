@@ -157,6 +157,3 @@ binary_sensor:
     name: Button Row 4 Column 6
     keypad_id: keypad
     key: X
-
-
-
