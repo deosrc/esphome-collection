@@ -24,7 +24,7 @@ jobs:
     strategy:
       matrix:
         esphome_version:
-          - 2025.2.0
+          - 2025.10.0
         test_file:
           - ./devices/adafruit-magtag/tests/main.yaml
           - ./devices/espressif-esp32-s3-box-3/tests/main.yaml
