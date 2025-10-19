@@ -1,5 +1,7 @@
 esphome:
   name: test
+  framework:
+    type: esp-idf
 
 packages:
   device: !include ../main.yaml

@@ -1,0 +1,7 @@
+esphome:
+  name: test
+  framework:
+    type: arduino
+
+packages:
+  device: !include ../main.yaml
