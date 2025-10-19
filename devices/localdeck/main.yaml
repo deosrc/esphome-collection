@@ -1,5 +1,5 @@
 esphome:
-  min_version: '2025.7'
+  min_version: '2025.10.0'
   platformio_options:
     board_build.flash_mode: dio
 
