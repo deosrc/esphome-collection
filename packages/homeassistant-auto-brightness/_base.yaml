@@ -1,28 +1,9 @@
 substitutions:
   home_assistant_entity_id: ""
+  feature_switch_id: auto_brightness
   brightness_multiplier: "1.0"
   min_brightness: "10"
   offset: "0"
-
-switch:
-  - platform: template
-    id: auto_brightness
-    name: Auto-brightness
-    icon: mdi:brightness-auto
-    entity_category: config
-    optimistic: true
-    restore_mode: RESTORE_DEFAULT_ON
-    on_turn_off:
-      - logger.log:
-          format: Auto-brightness switched off
-          tag: auto_brightness.switch
-          level: info
-    on_turn_on:
-      - logger.log:
-          format: Auto-brightness switched on
-          tag: auto_brightness.switch
-          level: info
-      - script.execute: auto_brightness_update
 
 sensor:
   - id: auto_brightness_target
@@ -44,7 +25,7 @@ script:
     then:
       - if:
           condition:
-            - switch.is_on: auto_brightness
+            - switch.is_on: $feature_switch_id
           then:
             - logger.log:
                 format: Updating brightness to %.0f percent

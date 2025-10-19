@@ -13,6 +13,7 @@ For a device where the brightness is set using a light component:
 
 ```yaml
 packages:
+  auto_brightness_feature_switch: !include _deosrc-collection/packages/homeassistant-auto-brightness/feature_switch.yaml
   auto_brightness: !include
     file: _deosrc-collection/packages/homeassistant-auto-brightness/light.yaml
     vars:
@@ -28,6 +29,7 @@ component should be configured using units of percent where 100 is max brightnes
 
 ```yaml
 packages:
+  auto_brightness_feature_switch: !include _deosrc-collection/packages/homeassistant-auto-brightness/feature_switch.yaml
   auto_brightness: !include
     file: _deosrc-collection/packages/homeassistant-auto-brightness/number.yaml
     vars:
@@ -64,6 +66,12 @@ number:
 
   The ID of the component which controls the display brightness (e.g. the ID of
   the light which controls the backlight.)
+
+- **feature_switch_id:** (Optional, string)
+
+  The ID of the switch component to turn the auto-brightness feature on and off.
+  If using this option, do not include the `feature_switch.yaml` package from the
+  examples.
 
 - **home_assistant_entity_id** (Required, string)
 
