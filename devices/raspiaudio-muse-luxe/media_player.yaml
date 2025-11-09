@@ -1,3 +1,13 @@
+switch:
+  - platform: gpio
+    id: dac_mute
+    name: DAC Mute
+    entity_category: diagnostic
+    restore_mode: ALWAYS_ON
+    pin:
+      number: GPIO21
+      inverted: true
+
 i2c:
   - id: i2c_bus
     sda: GPIO18
@@ -33,18 +43,6 @@ media_player:
       speaker: announcement_speaker
     media_pipeline:
       speaker: media_speaker
-
-# media_player:
-#   - platform: i2s_audio
-#     name: None
-#     id: luxe_out
-#     dac_type: external
-#     i2s_dout_pin: GPIO26
-#     mode: stereo
-#     mute_pin:
-#       number: GPIO21
-#       inverted: true
-#       allow_other_uses: true
 
 # microphone:
 #   - platform: i2s_audio

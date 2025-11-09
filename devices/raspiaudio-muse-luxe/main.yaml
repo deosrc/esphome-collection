@@ -64,13 +64,6 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-  - platform: gpio
-    name: DAC Mute
-    entity_category: diagnostic
-    pin:
-      number: GPIO21
-      inverted: true
-      #allow_other_uses: true
 
 light:
   - platform: esp32_rmt_led_strip
