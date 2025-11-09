@@ -7,19 +7,19 @@ esphome:
 esp32:
   board: esp-wrover-kit
   framework:
-    type: arduino
+    type: esp-idf
 
 i2c:
   - id: i2c_bus
     sda: GPIO18
     scl: GPIO23
 
-i2s_audio:
-  - id: i2s_audio_bus
-    i2s_lrclk_pin: GPIO25
-    i2s_bclk_pin:
-      number: GPIO5
-      ignore_strapping_warning: true
+# i2s_audio:
+#   - id: i2s_audio_bus
+#     i2s_lrclk_pin: GPIO25
+#     i2s_bclk_pin:
+#       number: GPIO5
+#       ignore_strapping_warning: true
 
 # audio_dac:
 #   - platform: es8388
@@ -34,6 +34,7 @@ i2s_audio:
 #     mute_pin:
 #       number: GPIO21
 #       inverted: true
+#       allow_other_uses: true
 
 # microphone:
 #   - platform: i2s_audio
@@ -98,8 +99,17 @@ i2s_audio:
 #         input: true
 #         pullup: true
 
+binary_sensor:
+  - platform: gpio
+    name: DAC Mute
+    entity_category: diagnostic
+    pin:
+      number: GPIO21
+      inverted: true
+      #allow_other_uses: true
+
 light:
-  - platform: fastled_clockless
+  - platform: esp32_rmt_led_strip
     id: activity_led
     pin: GPIO22
     chipset: SK6812
