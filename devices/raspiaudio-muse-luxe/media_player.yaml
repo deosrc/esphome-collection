@@ -23,6 +23,13 @@ i2s_audio:
 audio_dac:
   - platform: es8388
 
+select:
+  - platform: es8388
+    dac_output:
+      name: "DAC Output"
+    # adc_input_mic:
+    #   name: "ADC Input MIC"
+
 speaker:
   - platform: i2s_audio
     id: i2s_speaker
