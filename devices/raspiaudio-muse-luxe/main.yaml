@@ -17,7 +17,9 @@ i2c:
 i2s_audio:
   - id: i2s_audio_bus
     i2s_lrclk_pin: GPIO25
-    i2s_bclk_pin: GPIO5
+    i2s_bclk_pin:
+      number: GPIO5
+      ignore_strapping_warning: true
 
 # audio_dac:
 #   - platform: es8388
