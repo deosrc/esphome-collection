@@ -33,6 +33,7 @@ jobs:
           - ./devices/led-brick-home/tests/single-channels.yaml
           - ./devices/localdeck/tests/main.yaml
           - ./devices/raspiaudio-muse-luxe/main.yaml
+          - ./devices/raspiaudio-muse-luxe/media_player.yaml
           - ./devices/sonoff-rf-bridge/tests/doorbell.yaml
           - ./devices/sonoff-rf-bridge/tests/last-rf-received.yaml
           - ./devices/sonoff-rf-bridge/tests/main.yaml

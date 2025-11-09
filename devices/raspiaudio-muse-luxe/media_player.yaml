@@ -1,0 +1,54 @@
+i2c:
+  - id: i2c_bus
+    sda: GPIO18
+    scl: GPIO23
+
+i2s_audio:
+  - id: i2s_audio_bus
+    i2s_lrclk_pin: GPIO25
+    i2s_bclk_pin:
+      number: GPIO5
+      ignore_strapping_warning: true
+
+# audio_dac:
+#   - platform: es8388
+
+speaker:
+  - platform: i2s_audio
+    id: i2s_speaker
+    dac_type: external
+    i2s_dout_pin: GPIO26
+    channel: stereo
+  - platform: mixer
+    output_speaker: i2s_speaker
+    source_speakers:
+      - id: announcement_speaker
+      - id: media_speaker
+
+media_player:
+  - platform: speaker
+    id: luxe_out
+    name: None
+    announcement_pipeline:
+      speaker: announcement_speaker
+    media_pipeline:
+      speaker: media_speaker
+
+# media_player:
+#   - platform: i2s_audio
+#     name: None
+#     id: luxe_out
+#     dac_type: external
+#     i2s_dout_pin: GPIO26
+#     mode: stereo
+#     mute_pin:
+#       number: GPIO21
+#       inverted: true
+#       allow_other_uses: true
+
+# microphone:
+#   - platform: i2s_audio
+#     id: luxe_microphone
+#     i2s_din_pin: GPIO35
+#     adc_type: external
+#     pdm: false
