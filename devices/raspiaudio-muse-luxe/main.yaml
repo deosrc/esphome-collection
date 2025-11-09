@@ -60,6 +60,7 @@ binary_sensor:
     name: Action Button
     pin:
       number: GPIO12
+      ignore_strapping_warning: true
       inverted: true
       mode:
         input: true
