@@ -1,4 +1,5 @@
 # Based on https://github.com/esphome/media-players/blob/main/raspiaudio/raspiaudio-muse-luxe.yaml
+# And https://github.com/RASPIAUDIO/esphomeLuxe/blob/main/luxe_microWW.yaml
 
 esphome:
   min_version: 2025.7.0
@@ -11,24 +12,62 @@ esp32:
 
 sensor:
   - platform: adc
-    id: battery_sensor
     pin: GPIO33
-    name: Battery
-    icon: "mdi:battery-outline"
+    name: Battery voltage
     device_class: voltage
+    unit_of_measurement: "V"
+    accuracy_decimals: 2
     state_class: measurement
     entity_category: diagnostic
-    unit_of_measurement: V
     update_interval: 15s
-    accuracy_decimals: 3
-    attenuation: 11db
-    raw: true
+    attenuation: auto
     filters:
-      - multiply: 0.00173913  # 2300 -> 4, for attenuation 11db, based on Olivier's code
+      - multiply: 2 # https://forum.raspiaudio.com/t/esp-muse-luxe-bluetooth-speaker/294/12
       - exponential_moving_average:
           alpha: 0.2
           send_every: 2
       - delta: 0.002
+    on_value:
+      then:
+        - sensor.template.publish:
+            id: battery_percent
+            state: !lambda "return x;"
+  - platform: template
+    name: Battery
+    id: battery_percent
+    device_class: battery
+    unit_of_measurement: "%"
+    accuracy_decimals: 0
+    state_class: measurement
+    entity_category: diagnostic
+    update_interval: 15s
+    filters:
+      - calibrate_polynomial:
+          degree: 3
+          datapoints:
+            - 4.58 -> 100.0
+            - 4.5 -> 97.1
+            - 4.47 -> 94.2
+            - 4.44 -> 88.4
+            - 4.42 -> 82.7
+            - 4.41 -> 76.9
+            - 4.41 -> 71.1
+            - 4.37 -> 65.3
+            - 4.35 -> 59.5
+            - 4.31 -> 53.8
+            - 4.28 -> 48.0
+            - 4.26 -> 42.2
+            - 4.23 -> 36.4
+            - 4.21 -> 30.6
+            - 4.19 -> 24.9
+            - 4.16 -> 19.1
+            - 4.1 -> 13.3
+            - 4.07 -> 10.4
+            - 4.03 -> 7.5
+            - 3.97 -> 4.6
+            - 3.82 -> 1.7
+            - 3.27 -> 0.0
+      - lambda: return clamp(x, 0.0f, 100.0f);
 
 binary_sensor:
   - platform: gpio
