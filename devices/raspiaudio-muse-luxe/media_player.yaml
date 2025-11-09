@@ -1,3 +1,5 @@
+# Based on https://github.com/RASPIAUDIO/esphomeLuxe/blob/main/luxe_microWW.yaml
+
 switch:
   - platform: gpio
     id: dac_mute
@@ -14,8 +16,11 @@ i2c:
     scl: GPIO23
 
 i2s_audio:
-  - id: i2s_audio_bus
+  - id: i2s0
     i2s_lrclk_pin: GPIO25
+    i2s_mclk_pin:
+      number: GPIO0
+      ignore_strapping_warning: true
     i2s_bclk_pin:
       number: GPIO5
       ignore_strapping_warning: true
@@ -32,12 +37,16 @@ select:
 
 speaker:
   - platform: i2s_audio
-    id: i2s_speaker
-    dac_type: external
+    id: luxe_speaker
+    i2s_audio_id: i2s0
     i2s_dout_pin: GPIO26
-    channel: stereo
+    dac_type: external
+    sample_rate: 48000
+    bits_per_sample: 16bit
+    num_channels: 2
+    buffer_duration: 100ms
   - platform: mixer
-    output_speaker: i2s_speaker
+    output_speaker: luxe_speaker
     source_speakers:
       - id: announcement_speaker
       - id: media_speaker
@@ -48,8 +57,14 @@ media_player:
     name: None
     announcement_pipeline:
       speaker: announcement_speaker
+      format: WAV
+      sample_rate: 48000
+      num_channels: 1
     media_pipeline:
       speaker: media_speaker
+      format: WAV
+      sample_rate: 48000
+      num_channels: 1
 
 # microphone:
 #   - platform: i2s_audio
