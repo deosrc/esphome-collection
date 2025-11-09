@@ -64,42 +64,40 @@ i2c:
 #           send_every: 2
 #       - delta: 0.002
 
-# binary_sensor:
-#   - platform: gpio
-#     id: volume_up
-#     name: Volume Up
-#     pin:
-#       number: GPIO19
-#       inverted: true
-#       mode:
-#         input: true
-#         pullup: true
-#     on_click:
-#       - media_player.volume_up:
-#           id: luxe_out
-#   - platform: gpio
-#     id: volume_down
-#     name: Volume Down
-#     pin:
-#       number: GPIO32
-#       inverted: true
-#       mode:
-#         input: true
-#         pullup: true
-#     on_click:
-#       - media_player.volume_down:
-#           id: luxe_out
-#   - platform: gpio
-#     id: action_button
-#     name: Action Button
-#     pin:
-#       number: GPIO12
-#       inverted: true
-#       mode:
-#         input: true
-#         pullup: true
-
 binary_sensor:
+  - platform: gpio
+    id: volume_up
+    name: Volume Up
+    pin:
+      number: GPIO19
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    # on_click:
+    #   - media_player.volume_up:
+    #       id: luxe_out
+  - platform: gpio
+    id: volume_down
+    name: Volume Down
+    pin:
+      number: GPIO32
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    # on_click:
+    #   - media_player.volume_down:
+    #       id: luxe_out
+  - platform: gpio
+    id: action_button
+    name: Action Button
+    pin:
+      number: GPIO12
+      inverted: true
+      mode:
+        input: true
+        pullup: true
   - platform: gpio
     name: DAC Mute
     entity_category: diagnostic
