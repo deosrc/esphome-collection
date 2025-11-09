@@ -20,8 +20,8 @@ i2s_audio:
       number: GPIO5
       ignore_strapping_warning: true
 
-# audio_dac:
-#   - platform: es8388
+audio_dac:
+  - platform: es8388
 
 speaker:
   - platform: i2s_audio
