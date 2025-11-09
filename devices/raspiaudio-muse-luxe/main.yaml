@@ -96,12 +96,11 @@ esp32:
 #         input: true
 #         pullup: true
 
-# light:
-#   - platform: fastled_clockless
-#     name: None
-#     id: top_led
-#     pin: GPIO22
-#     chipset: SK6812
-#     num_leds: 1
-#     rgb_order: grb
-#     gamma_correct: 2.8
+light:
+  - platform: fastled_clockless
+    id: activity_led
+    pin: GPIO22
+    chipset: SK6812
+    num_leds: 1
+    rgb_order: grb
+    gamma_correct: 2.8
