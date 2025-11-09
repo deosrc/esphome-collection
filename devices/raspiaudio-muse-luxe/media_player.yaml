@@ -50,3 +50,13 @@ media_player:
 #     i2s_din_pin: GPIO35
 #     adc_type: external
 #     pdm: false
+
+binary_sensor:
+  - id: !extend volume_up
+    on_click:
+      then:
+        - media_player.volume_up: luxe_out
+  - id: !extend volume_down
+    on_click:
+      then:
+        - media_player.volume_down: luxe_out
