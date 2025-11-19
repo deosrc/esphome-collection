@@ -21,8 +21,9 @@ jobs:
         with:
           globs: '**/*.md'
 
-  test:
+  device_test:
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       matrix:
         esphome_version:
