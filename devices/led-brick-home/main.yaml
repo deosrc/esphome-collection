@@ -1,3 +1,6 @@
+esphome:
+  min_version: 2025.2.0
+
 esp32:
   board: esp32dev
 

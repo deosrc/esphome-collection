@@ -1,4 +1,5 @@
 esphome:
+  min_version: 2025.2.0
   platformio_options:
     board_build.flash_mode: dio
 
@@ -15,7 +16,6 @@ light:
     pin:
       number: GPIO8
       ignore_strapping_warning: true
-    rmt_channel: 0
     num_leds: 24
     chipset: SK6812
     restore_mode: RESTORE_AND_OFF
