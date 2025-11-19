@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: 5 4 10 * *
 
 jobs:
   lint:
@@ -25,6 +27,7 @@ jobs:
       matrix:
         esphome_version:
           - 2025.2.0
+          - latest
         test_file:
           - ./devices/adafruit-magtag/tests/main.yaml
           - ./devices/espressif-esp32-s3-box-3/tests/main.yaml
