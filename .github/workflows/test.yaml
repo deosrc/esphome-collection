@@ -27,7 +27,9 @@ jobs:
     strategy:
       matrix:
         esphome_version:
-          - 2025.2.0
+          - 2025.9.3
+          - 2025.10.5
+          - 2025.11.0
           - latest
         test_file:
           - ./devices/adafruit-magtag/tests/main.yaml
