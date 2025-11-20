@@ -41,6 +41,9 @@ jobs:
           - ./devices/sonoff-rf-bridge/tests/doorbell.yaml
           - ./devices/sonoff-rf-bridge/tests/last-rf-received.yaml
           - ./devices/sonoff-rf-bridge/tests/main.yaml
+        exclude:
+          - test_file: 2025.10.5
+            esphome_version: ./devices/adafruit-magtag/tests/main.yaml
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
