@@ -56,3 +56,6 @@ jobs:
 
       - name: Run test script
         run: ./test.sh -t ${{ matrix.test_file }} -v ${{ matrix.esphome_version }}
+
+      - name: Adjust permissions for caching
+        run: sudo chown -R $(id -u):$(id -g) .
