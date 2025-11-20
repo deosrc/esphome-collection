@@ -48,14 +48,14 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
-      - name: Cache
-        uses: actions/cache@v4
-        with:
-          path: '**/.esphome'
-          key: esphome_${{ matrix.esphome_version }}_${{ matrix.test_file }}
+      # - name: Cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: '**/.esphome'
+      #     key: esphome_${{ matrix.esphome_version }}_${{ matrix.test_file }}
 
       - name: Run test script
         run: ./test.sh -t ${{ matrix.test_file }} -v ${{ matrix.esphome_version }}
 
-      - name: Adjust permissions for caching
-        run: sudo chown -R $(id -u):$(id -g) .
+      # - name: Adjust permissions for caching
+      #   run: sudo chown -R $(id -u):$(id -g) .
