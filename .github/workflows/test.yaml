@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: 5 4 10 * *
 
 jobs:
   lint:
@@ -19,12 +21,16 @@ jobs:
         with:
           globs: '**/*.md'
 
-  test:
+  device_test:
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       matrix:
         esphome_version:
-          - 2025.10.0
+          - 2025.9.3
+          - 2025.10.5
+          - 2025.11.0
+          - latest
         test_file:
           - ./devices/adafruit-magtag/tests/main.yaml
           - ./devices/espressif-esp32-s3-box-3/tests/main.yaml
@@ -36,9 +42,21 @@ jobs:
           - ./devices/sonoff-rf-bridge/tests/doorbell.yaml
           - ./devices/sonoff-rf-bridge/tests/last-rf-received.yaml
           - ./devices/sonoff-rf-bridge/tests/main.yaml
+        exclude:
+          - test_file: ./devices/adafruit-magtag/tests/main.yaml
+            esphome_version: 2025.10.5
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
+      # - name: Cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: '**/.esphome'
+      #     key: esphome_${{ matrix.esphome_version }}_${{ matrix.test_file }}
+
       - name: Run test script
         run: ./test.sh -t ${{ matrix.test_file }} -v ${{ matrix.esphome_version }}
+
+      # - name: Adjust permissions for caching
+      #   run: sudo chown -R $(id -u):$(id -g) .
