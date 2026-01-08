@@ -31,7 +31,6 @@ jobs:
       - name: Get test files
         id: get-esphome-configs
         run: |-
-          cd ./ansible/roles/esphome_config/files
           VALUES=$(ls devices/*/tests/*.yaml | jq -R -c 'split("\n")[] | select(startswith("secrets") | not)' | jq -s -c)
           echo "files=$VALUES" >> "$GITHUB_OUTPUT"
 
