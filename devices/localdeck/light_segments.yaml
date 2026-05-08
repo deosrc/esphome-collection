@@ -1,0 +1,193 @@
+light:
+  - id: light_row_1_column_1
+    name: Light Row 1 Column 1
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 0
+      to: 0
+  - id: light_row_1_column_2
+    name: Light Row 1 Column 2
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 1
+      to: 1
+  - id: light_row_1_column_3
+    name: Light Row 1 Column 3
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 2
+      to: 2
+  - id: light_row_1_column_4
+    name: Light Row 1 Column 4
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 3
+      to: 3
+  - id: light_row_1_column_5
+    name: Light Row 1 Column 5
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 4
+      to: 4
+  - id: light_row_1_column_6
+    name: Light Row 1 Column 6
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 5
+      to: 5
+  - id: light_row_2_column_1
+    name: Light Row 2 Column 1
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 6
+      to: 6
+  - id: light_row_2_column_2
+    name: Light Row 2 Column 2
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 7
+      to: 7
+  - id: light_row_2_column_3
+    name: Light Row 2 Column 3
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 8
+      to: 8
+  - id: light_row_2_column_4
+    name: Light Row 2 Column 4
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 9
+      to: 9
+  - id: light_row_2_column_5
+    name: Light Row 2 Column 5
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 10
+      to: 10
+  - id: light_row_2_column_6
+    name: Light Row 2 Column 6
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 11
+      to: 11
+  - id: light_row_3_column_1
+    name: Light Row 3 Column 1
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 12
+      to: 12
+  - id: light_row_3_column_2
+    name: Light Row 3 Column 2
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 13
+      to: 13
+  - id: light_row_3_column_3
+    name: Light Row 3 Column 3
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 14
+      to: 14
+  - id: light_row_3_column_4
+    name: Light Row 3 Column 4
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 15
+      to: 15
+  - id: light_row_3_column_5
+    name: Light Row 3 Column 5
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 16
+      to: 16
+  - id: light_row_3_column_6
+    name: Light Row 3 Column 6
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 17
+      to: 17
+  - id: light_row_4_column_1
+    name: Light Row 4 Column 1
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 18
+      to: 18
+  - id: light_row_4_column_2
+    name: Light Row 4 Column 2
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 19
+      to: 19
+  - id: light_row_4_column_3
+    name: Light Row 4 Column 3
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 20
+      to: 20
+  - id: light_row_4_column_4
+    name: Light Row 4 Column 4
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 21
+      to: 21
+  - id: light_row_4_column_5
+    name: Light Row 4 Column 5
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 22
+      to: 22
+  - id: light_row_4_column_6
+    name: Light Row 4 Column 6
+    internal: true
+    platform: partition
+    segments:
+      id: ledstrip
+      from: 23
+      to: 23

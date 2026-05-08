@@ -62,7 +62,7 @@ binary_sensor:
   - platform: template
     name: "Doorbell Pressed"
     id: "doorbell_pressed"
-    publish_initial_state: true
+    trigger_on_initial_state: true
     on_press:
       then:
         - light.turn_on: wifi_led
