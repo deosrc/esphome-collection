@@ -14,7 +14,7 @@ light:
     name: Screen backlight
 
 display:
-  - platform: ili9xxx
+  - platform: mipi_spi
     id: screen
     model: ST7789V
     cs_pin: GPIO40
