@@ -18,7 +18,6 @@ output:
       ignore_strapping_warning: true
       mode:
         output: true
-      allow_other_uses: true
 
 microphone:
   - platform: i2s_audio
@@ -39,48 +38,3 @@ binary_sensor:
     name: Jack plugged in
     filters:
       - delayed_on_off: 0.3s
-    on_state:
-      then:
-        - script.execute: update_dac_mute
-  - id: !extend volume_button
-    internal: true
-    on_click:
-      then:
-        - logger.log:
-            format: Muting media player
-            tag: volume_button
-            level: INFO
-        - media_player.volume_set:
-            id: player
-            volume: 0%
-
-media_player:
-  - platform: i2s_audio
-    id: player
-    name: None
-    dac_type: external
-    i2s_dout_pin: GPIO17
-    i2s_audio_id: i2s_shared
-    mode: mono
-    mute_pin:
-      number: GPIO46
-      inverted: true
-      ignore_strapping_warning: true
-      mode:
-        output: true
-      allow_other_uses: true
-
-script:
-  - id: update_dac_mute
-    then:
-      - if:
-          condition:
-            and:
-              - media_player.is_playing
-              - binary_sensor.is_off: jack_plugged
-          then:
-            - logger.log: "Turn off DAC mute"
-            - output.turn_off: dac_mute
-          else:
-            - logger.log: "Turn on DAC mute"
-            - output.turn_on: dac_mute

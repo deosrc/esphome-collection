@@ -1,17 +1,20 @@
-# Based on https://github.com/tetele/muse-radio-voice-satellite/blob/main/esphome/raspiaudio-radio.yaml
+# Based on:
+# - https://github.com/tetele/muse-radio-voice-satellite/blob/main/esphome/raspiaudio-radio.yaml
+# - https://github.com/RASPIAUDIO/esphomeRadioMusic/blob/main/radio_music.yaml
 
 esphome:
-  min_version: 2024.9.1
-  platformio_options:
-    board_build.flash_mode: dio
-    board_build.arduino.memory_type: qio_opi
+  min_version: 2026.3.0
 
 esp32:
   board: esp32-s3-devkitc-1
   variant: esp32s3
   flash_size: 8MB
   framework:
-    type: arduino
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: "y"
+      CONFIG_ESP32S3_DATA_CACHE_64KB: "y"
+      CONFIG_ESP32S3_DATA_CACHE_LINE_64B: "y"
 
 psram:
   mode: octal
@@ -29,7 +32,6 @@ i2c:
 spi:
   - clk_pin: GPIO12
     mosi_pin: GPIO8
-    # miso_pin: GPIOXX
     interface: hardware
 
 binary_sensor:
