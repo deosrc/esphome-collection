@@ -29,6 +29,8 @@ packages:
 i2c:
   sda: GPIO18
   scl: GPIO11
+  scan: true
+  frequency: 100kHz
 
 spi:
   - clk_pin: GPIO12
