@@ -21,6 +21,7 @@ psram:
   speed: 80MHz
 
 packages:
+  battery: !include battery.yaml
   controls: !include controls.yaml
   audio: !include audio.yaml
   display: !include display.yaml
