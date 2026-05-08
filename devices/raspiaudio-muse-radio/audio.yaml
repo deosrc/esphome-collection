@@ -42,3 +42,13 @@ binary_sensor:
     name: Jack plugged in
     filters:
       - delayed_on_off: 0.3s
+
+speaker:
+  - platform: i2s_audio
+    id: box_speaker
+    i2s_dout_pin: GPIO17
+    dac_type: external
+    channel: stereo
+    sample_rate: 48000
+    bits_per_sample: 16bit
+    buffer_duration: 500ms
