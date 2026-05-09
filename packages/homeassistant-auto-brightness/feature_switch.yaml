@@ -1,0 +1,19 @@
+switch:
+  - platform: template
+    id: auto_brightness
+    name: Auto-brightness
+    icon: mdi:brightness-auto
+    entity_category: config
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_ON
+    on_turn_off:
+      - logger.log:
+          format: Auto-brightness switched off
+          tag: auto_brightness.switch
+          level: info
+    on_turn_on:
+      - logger.log:
+          format: Auto-brightness switched on
+          tag: auto_brightness.switch
+          level: info
+      - script.execute: auto_brightness_update
