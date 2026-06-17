@@ -8,24 +8,27 @@ captive_portal:
 
 button:
   - platform: factory_reset
+    id: factory_reset_button
     name: Factory Reset
 
 # Common Sensors
 binary_sensor:
   - platform: status
+    id: status_sensor
     name: "Status"
     entity_category: "diagnostic"
 
 sensor:
   - platform: uptime
-    name: "Uptime"
     id: uptime_sensor
+    name: "Uptime"
     update_interval: 15s
     device_class: duration
     unit_of_measurement: s
     entity_category: "diagnostic"
 
   - platform: wifi_signal
+    id: wifi_signal_sensor
     name: "WiFi Signal Strength"
     update_interval: 60s
     entity_category: "diagnostic"
