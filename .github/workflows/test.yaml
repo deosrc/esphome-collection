@@ -41,7 +41,7 @@ jobs:
     strategy:
       matrix:
         esphome_version:
-          - 2025.11.0
+          - 2026.3.0
           - latest
         test_file: ${{ fromJSON(needs.device_test_prep.outputs.test_files) }}
     steps:
